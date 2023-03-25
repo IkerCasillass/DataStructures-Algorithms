@@ -12,7 +12,7 @@
 * Compilacion para ejecucion:  
 *    g++ -std=c++17 -O3 -o main *.cpp 
 * Ejecucion:
-*    ./main < TestCases/test01.txt
+*    ./main < TestCases/bitacora.txt
 
 
 
