@@ -106,7 +106,7 @@ int main() {
   }
   
 
-  
+  leerDatos.mergeSort():
   /*listaRegistros.push_back(a);
   listaRegistros.push_back(b);
   listaRegistros.push_back(c);*/
