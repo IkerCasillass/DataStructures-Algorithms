@@ -79,13 +79,15 @@ int main() {
   Registro key("Jan", "01", "00", "01", "02", "", "", "");
   std::cout << "Key " << std::endl;
   std::cout << key.getAll() << std::endl;
-  
+  int size;
   std::vector<Registro> listaRegistros;
 
   listaRegistros = leerDatos(listaRegistros);
+  size = listaRegistros.size();
+  std::cout<<size<<std::endl;
   
-  for(int i = 0; i<5; i++) {
-    std::cout <<listaRegistros[i].getIp();
+  for(int i = 0; i<10; i++) {
+    std::cout <<listaRegistros[i].getIp() <<std::endl;
   }
   
 
