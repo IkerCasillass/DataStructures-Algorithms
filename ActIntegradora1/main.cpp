@@ -46,7 +46,7 @@ std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
   std::string error5;
   std::string error6;
   int i = 0;
-  Registro registrotemp;
+  //Registro registrotemp;
   std::ifstream bitacora("bitacora.txt"); //archivo a leer
 
 
@@ -72,17 +72,17 @@ std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
       std::string error;
       error = error1 + " " + error2+ " " + error3+ " " + error4+ " " + error5+ " " + error6;
 
-      //Registro registrotemp("", "", "", "", "", "", "", "");
+      Registro registrotemp(mes, dia, horas, minutos, segundos, ip, puerto, error);
       
       //Guardando datos en vector de Registros
-      registrotemp.setMes(mes);
+      /*registrotemp.setMes(mes);
       registrotemp.setDia(dia);
       registrotemp.setHoras(horas);
       registrotemp.setMinutos(minutos);
       registrotemp.setSegundos(segundos);
       registrotemp.setIp(ip);
       registrotemp.setPuerto(puerto);
-      registrotemp.setFalla(error);
+      registrotemp.setFalla(error);*/
       
       listaRegistros.push_back(registrotemp);
   }
@@ -102,20 +102,21 @@ int main() {
   Registro b("Feb", "04", "00", "01", "02", "1.1.1.3", "1234", "Falla 2");
   Registro c("Dec", "01", "00", "01", "02", "1.1.1.1", "123", "Falla 1");
   Registro key("Jan", "01", "00", "01", "02", "", "", "");
-  std::cout << "Key " << std::endl;
-  std::cout << key.getAll() << std::endl;
+  //std::cout << "Key " << std::endl;
+  //std::cout << key.getAll() << std::endl;
   int size;
   std::vector<Registro> listaRegistros;
 
   listaRegistros = leerDatos(listaRegistros);
   size = listaRegistros.size();
-  std::cout<<size<<std::endl;
+  //std::cout<<size<<std::endl;
 
-  std::cout <<listaRegistros[0].getMes()<<std::endl;
-  std::cout<<listaRegistros[0].getDia()<<std::endl;
-  std::cout<<listaRegistros[0].getMinutos()<<std::endl;
-  std::cout<<listaRegistros[0].getSegundos()<<std::endl;
 
+  std::cout<<listaRegistros[0].getFechaHora()<<std::endl;
+  std::cout<<listaRegistros[1].getFechaHora()<<std::endl;
+  std::cout<<listaRegistros[2].getFechaHora()<<std::endl;
+  std::cout<<listaRegistros[3].getFechaHora()<<std::endl;
+  
 
   AlgorithmSort<Registro>sortObj;
   /*
