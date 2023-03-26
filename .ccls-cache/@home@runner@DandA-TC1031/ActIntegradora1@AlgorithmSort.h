@@ -10,6 +10,7 @@ template <class T> class AlgorithmSort {
 private:
   void merge(std::vector<T> &A, int low, int m, int high,
              unsigned int &compara);
+  int partition(std::vector<T> &A, int low, int high, unsigned int &compara, unsigned int &swap);
 
 public:
   AlgorithmSort();
@@ -24,6 +25,7 @@ public:
   void insertionSort(std::vector<T> &A, int n, unsigned int &compara,
                      unsigned int &swap);
   void mergeSort(std::vector<T> &A, int low, int high, unsigned int &compara);
+  void quickSort(std::vector<T> &A, int low, int high, unsigned int &compara, unsigned int &swap);
 };
 
 template <class T> AlgorithmSort<T>::AlgorithmSort() {}
@@ -158,6 +160,35 @@ void AlgorithmSort<T>::merge(std::vector<T> &A, int low, int m, int high,
     A[k] = R[j];
     j++; 
     k++;
+  }
+}
+
+template <class T>
+int AlgorithmSort<T>::partition(std::vector<T> &A, int low, int high, unsigned int &compara, unsigned int &swap) {
+  
+  T pivot = A[high];
+  int i = low - 1;
+  for (int j = low; j<high; j++){
+    compara++;
+    if (A[j] < pivot ){
+      i++;
+      std::swap(A[i], A[j]);
+      swap++;
+    }
+  }
+  std::swap(A[i+1], A[high]);
+  swap++;
+  return i+1;
+}
+
+template <class T>
+void AlgorithmSort<T>::quickSort(std::vector<T> &A, int low, int high, unsigned int &compara, unsigned int &swap) {
+  if (low < high) {
+    // encontrar la particion
+    int pi = partition(A, low, high, compara, swap);
+    // ordenar la mitad izquierda y derecha
+    quickSort(A, low, pi-1, compara, swap);
+    quickSort(A, pi+1, high, compara, swap);
   }
 }
 #endif // _ALGORITMO_SORT_H_

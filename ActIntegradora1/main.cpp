@@ -91,24 +91,27 @@ int main() {
 
   unsigned int comparaciones, swaps;
   int size;
-  std::vector<Registro> listaRegistros;
+  std::vector<Registro> listaRegistros, listaRegistros1, listaRegistros2;
 
   listaRegistros = leerDatos(listaRegistros);
   size = listaRegistros.size();
   //std::cout<<size<<std::endl;
 
-/*
-  std::cout<<listaRegistros[0].getFechaHora()<<std::endl;
-  std::cout<<listaRegistros[1].getFechaHora()<<std::endl;
-  std::cout<<listaRegistros[2].getFechaHora()<<std::endl;
-  std::cout<<listaRegistros[3].getFechaHora()<<std::endl;
-  */
+  listaRegistros1 = listaRegistros;
+  listaRegistros2 = listaRegistros;
 
   AlgorithmSort<Registro>sortObj;
   std::cout <<"Ordenando lista..."<<std::endl;
-  sortObj.insertionSort(listaRegistros, size, comparaciones, swaps);
+  /*sortObj.insertionSort(listaRegistros1, size, comparaciones, swaps);
 
-  std::cout<<listaRegistros[0].getFechaHora()<<std::endl;
+  std::cout<<listaRegistros1[0].getFechaHora()<<std::endl;
+  std::cout<<"comparaciones: "<<comparaciones <<std::endl;
+  std::cout<<"swaps: "<<swaps <<std::endl;*/
+
+  comparaciones = swaps = 0;
+  sortObj.quickSort(listaRegistros2, 0, size-1, comparaciones, swaps);
+
+  std::cout<<listaRegistros2[0].getFechaHora()<<std::endl;
   std::cout<<"comparaciones: "<<comparaciones <<std::endl;
   std::cout<<"swaps: "<<swaps <<std::endl;
   
