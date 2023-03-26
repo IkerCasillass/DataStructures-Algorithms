@@ -25,6 +25,7 @@
 #include <fstream> // ayuda en lectura de archivo
 #include <sstream> // facilita separar el string
 #include "AlgorithmSort.h"
+#include<chrono>
 //Funciones de archivo principal
  
 
@@ -85,7 +86,9 @@ std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
   }
   return listaRegistros;
 }
-
+std::vector<Registro> Ordenar(std::vector<Registro> &listaRegistros, int size){
+  unsigned int comparaciones, swaps;
+}
 
 int main() {
 
@@ -101,36 +104,30 @@ int main() {
   listaRegistros2 = listaRegistros;
 
   AlgorithmSort<Registro>sortObj;
-  std::cout <<"Ordenando lista..."<<std::endl;
-  /*sortObj.insertionSort(listaRegistros1, size, comparaciones, swaps);
+  std::cout <<"\nOrdenando lista...\n"<<std::endl;
+  std::cout <<"-- InsertionSort --"<<std::endl;
+  auto startTime = std::chrono::high_resolution_clock::now(); //Iniciar tiempo
+  sortObj.insertionSort(listaRegistros1, size, comparaciones, swaps); //Ordenar por insertion sort
+  auto endTime = std::chrono::high_resolution_clock::now(); //Termina tiempo ejecucion
+  auto totalTime = endTime - startTime;
 
+  
   std::cout<<listaRegistros1[0].getFechaHora()<<std::endl;
   std::cout<<"comparaciones: "<<comparaciones <<std::endl;
-  std::cout<<"swaps: "<<swaps <<std::endl;*/
+  std::cout<<"swaps: "<<swaps <<std::endl;
+  std::cout<<"Tiempo de ejecucion en ms: " << totalTime/std::chrono::milliseconds(1)<<std::endl;
 
+  std::cout <<"---- Quicksort ----"<<std::endl;
   comparaciones = swaps = 0;
-  sortObj.quickSort(listaRegistros2, 0, size-1, comparaciones, swaps);
+  startTime = std::chrono::high_resolution_clock::now(); //Iniciar tiempo
+  sortObj.quickSort(listaRegistros2, 0, size-1, comparaciones, swaps); //Ordenar con quicksort
+  endTime = std::chrono::high_resolution_clock::now(); //Termina tiempo ejecucion
+  totalTime = endTime - startTime;
 
   std::cout<<listaRegistros2[0].getFechaHora()<<std::endl;
   std::cout<<"comparaciones: "<<comparaciones <<std::endl;
   std::cout<<"swaps: "<<swaps <<std::endl;
-  
-  /*
-  for(int i = 0; i<3; i++) {
-    std::cout <<listaRegistros[i].getAll() << std::endl;
-  }
-
-  sortObj.insertionSort(listaRegistros, size, comparaciones, swaps);
-
-  for(int i = 0; i<3; i++) {
-    std::cout <<listaRegistros[i].getAll() << std::endl;
-  }
-  */
-
-  /*listaRegistros.push_back(a);
-  listaRegistros.push_back(b);
-  listaRegistros.push_back(c);*/
-
+  std::cout<<"Tiempo de ejecucion en ms: " << totalTime/std::chrono::milliseconds(1)<<std::endl;
 
 
   
