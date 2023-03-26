@@ -26,7 +26,8 @@
 #include <sstream> // facilita separar el string
 
 //Funciones de archivo principal
-std::vector<Registro> leerDatos(std::vector<Registro> listaRegistros){
+std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
+  //Pasamos vector por referencia para modificarlo
   
   std::string linea;
   std::string mes;
@@ -41,23 +42,28 @@ std::vector<Registro> leerDatos(std::vector<Registro> listaRegistros){
   std::string error6;
   int i = 0;
   Registro registrotemp;
+  std::ifstream bitacora("bitacora.txt"); //archivo a leer
+
 
   //Leer archivo
-  std::string nombreArchivo = "bitacora.txt";
-  std::ifstream archivo(nombreArchivo.c_str());
+  if(bitacora.is_open()) {
 
-  // Obtener línea de archivo, y almacenar contenido en "linea"
-  while (getline(archivo, linea)) {
+  
+    // Obtener línea de archivo, y almacenar contenido en "linea"
+    while (getline(bitacora, linea)) {
+      
+      // Los agregamos al vector de registros
+      std::istringstream ss(linea);
+      ss>>mes>>dia>>hora>>ip>>error1>>error2>>error3>>error4>>error5>>error6;
+          
+      std::string error;
+      error = error1 + " " + error2+ " " + error3+ " " + error4+ " " + error5+ " " + error6;
+      registrotemp.setIp(ip);
+      listaRegistros.push_back(registrotemp);
+      i++;
+  }
     
-    // Los agregamos al vector de registros
-    std::istringstream ss(linea);
-    ss>>mes>>dia>>hora>>ip>>error1>>error2>>error3>>error4>>error5>>error6;
-        
-    std::string error;
-    error = error1 + " " + error2+ " " + error3+ " " + error4+ " " + error5+ " " + error6;
-    registrotemp.setIp(ip);
-    listaRegistros.push_back(registrotemp);
-    i++;
+  
 
   }
   return listaRegistros;
@@ -73,13 +79,16 @@ int main() {
   Registro key("Jan", "01", "00", "01", "02", "", "", "");
   std::cout << "Key " << std::endl;
   std::cout << key.getAll() << std::endl;
-  std::vector<Registro> listaRegistros;
   
-  listaRegistros = leerDatos(listaRegistros);
+  std::vector<Registro> listaRegistros;
 
-  for(int i=0; i<5; i++){
-    std::cout<<listaRegistros[i].getIp();
+  listaRegistros = leerDatos(listaRegistros);
+  
+  for(int i = 0; i<5; i++) {
+    std::cout <<listaRegistros[i].getIp();
   }
+  
+
   
   /*listaRegistros.push_back(a);
   listaRegistros.push_back(b);

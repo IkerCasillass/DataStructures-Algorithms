@@ -23,7 +23,8 @@ class Registro {
     Registro(std::string _mes, std::string _dia, std::string _horas, std::string _minutos, std::string _segundos, std::string _ip, std::string _puerto, std::string _falla);
     std::string getAll();
 
-    void setIp();
+    void setIp(std::string);
+    std::string getIp();
 
     // Sobre carga de operadores
     bool operator ==(const Registro&);

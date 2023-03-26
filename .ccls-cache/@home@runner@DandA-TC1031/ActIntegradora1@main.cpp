@@ -26,33 +26,47 @@
 #include <sstream> // facilita separar el string
 
 //Funciones de archivo principal
-void leerDatos(std::vector<Registro> listaRegistro){
-    std::string linea;
-    std::string mes;
-    std::string dia;
-    std::string hora;
-    std::string ip;
-    std::string error1;
-    std::string error2;
-    std::string error3;
-    std::string error4;
-    std::string error5;
-    std::string error6;
+std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
+  //Pasamos vector por referencia para modificarlo
+  
+  std::string linea;
+  std::string mes;
+  std::string dia;
+  std::string hora;
+  std::string ip;
+  std::string error1;
+  std::string error2;
+  std::string error3;
+  std::string error4;
+  std::string error5;
+  std::string error6;
+  int i = 0;
+  Registro registrotemp;
+  std::ifstream bitacora("bitacora.txt"); //archivo a leer
 
-    //Leer archivo
-    std::string nombreArchivo = "bitacora.txt";
-    std::ifstream archivo(nombreArchivo.c_str());
+
+  //Leer archivo
+  if(bitacora.is_open()) {
+
   
     // Obtener línea de archivo, y almacenar contenido en "linea"
-    while (getline(archivo, linea)) {
+    while (getline(bitacora, linea)) {
       
       // Los agregamos al vector de registros
-      std::stringstream ss(linea);
+      std::istringstream ss(linea);
       ss>>mes>>dia>>hora>>ip>>error1>>error2>>error3>>error4>>error5>>error6;
           
       std::string error;
       error = error1 + " " + error2+ " " + error3+ " " + error4+ " " + error5+ " " + error6;
-    }
+      registrotemp.setIp(ip);
+      listaRegistros.push_back(registrotemp);
+      i++;
+  }
+    
+  
+
+  }
+  return listaRegistros;
 }
 
 
@@ -65,11 +79,20 @@ int main() {
   Registro key("Jan", "01", "00", "01", "02", "", "", "");
   std::cout << "Key " << std::endl;
   std::cout << key.getAll() << std::endl;
-
+  
   std::vector<Registro> listaRegistros;
-  listaRegistros.push_back(a);
+
+  listaRegistros = leerDatos(listaRegistros);
+  
+  for(int i = 0; i<5; i++) {
+    std::cout <<listaRegistros[i].getIp();
+  }
+  
+
+  
+  /*listaRegistros.push_back(a);
   listaRegistros.push_back(b);
-  listaRegistros.push_back(c);
+  listaRegistros.push_back(c);*/
 
 
 
@@ -79,7 +102,8 @@ int main() {
   
   // Comparacion de dos objetos de la clase registro
   // gracias a la sobrecarga de operadores de comparacion
-  if (listaRegistros[0] < listaRegistros[1]) std::cout << "a es menor que b" << std::endl;
+  
+  /*if (listaRegistros[0] < listaRegistros[1]) std::cout << "a es menor que b" << std::endl;
   if (listaRegistros[0] == listaRegistros[2]) std::cout << "a es igual a c" << std::endl;
 
   
@@ -88,7 +112,7 @@ int main() {
       std::cout << "found in " << i << std::endl;
       std::cout << listaRegistros[i].getAll() << std::endl;
     }
-  }
+  }*/
   
   return 0;
   
