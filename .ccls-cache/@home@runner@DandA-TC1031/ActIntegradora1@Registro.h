@@ -23,8 +23,25 @@ class Registro {
     Registro(std::string _mes, std::string _dia, std::string _horas, std::string _minutos, std::string _segundos, std::string _ip, std::string _puerto, std::string _falla);
     std::string getAll();
 
+    void setMes(std::string);
+    void setDia(std::string);
+    void setHoras(std::string);
+    void setMinutos(std::string);
+    void setSegundos(std::string);
     void setIp(std::string);
+    void setPuerto(std::string);
+    void setFalla(std::string);
+    
+    
+    
+    std::string getMes();
+    std::string getDia();
+    std::string getHoras();
+    std::string getMinutos();
+    std::string getSegundos();
     std::string getIp();
+    std::string getPuerto();
+    std::string getFalla();
 
     // Sobre carga de operadores
     bool operator ==(const Registro&);

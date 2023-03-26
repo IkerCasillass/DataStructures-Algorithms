@@ -1,28 +1,30 @@
 
 #include "Registro.h"
 
-//Constructor default
+// Constructor default
 Registro::Registro() {
   mes = "";
   dia = "";
-  horas = ""; 
-  minutos = ""; 
-  segundos = ""; 
-  ip = ""; 
-  puerto = ""; 
+  horas = "";
+  minutos = "";
+  segundos = "";
+  ip = "";
+  puerto = "";
   falla = "";
   fechaHora = 0;
 }
 
-//Constructor 
-Registro::Registro(std::string _mes, std::string _dia, std::string _horas, std::string _minutos, std::string _segundos, std::string _ip, std::string _puerto, std::string _falla) {
+// Constructor
+Registro::Registro(std::string _mes, std::string _dia, std::string _horas,
+                   std::string _minutos, std::string _segundos, std::string _ip,
+                   std::string _puerto, std::string _falla) {
   mes = _mes;
   dia = _dia;
-  horas = _horas; 
-  minutos = _minutos; 
-  segundos = _segundos; 
-  ip = _ip; 
-  puerto = _puerto; 
+  horas = _horas;
+  minutos = _minutos;
+  segundos = _segundos;
+  ip = _ip;
+  puerto = _puerto;
   falla = _falla;
   // Almacenar los campos en el struct tm
   dateStruct.tm_hour = std::stoi(horas);
@@ -32,7 +34,7 @@ Registro::Registro(std::string _mes, std::string _dia, std::string _horas, std::
   // Resolver problemas de compatibilidad Windows
   dateStruct.tm_isdst = 0;
   for (int i = 0; i < (int)meses.size(); i++) {
-    if (meses[i] == mes) 
+    if (meses[i] == mes)
       dateStruct.tm_mon = i;
   }
   dateStruct.tm_year = 2023 - 1900; // Asumimos el año 2023
@@ -41,17 +43,29 @@ Registro::Registro(std::string _mes, std::string _dia, std::string _horas, std::
   fechaHora = mktime(&dateStruct);
 }
 
-//setters - getters
-void Registro::setIp(std::string _ip) {
-  ip = _ip;
-}
+// Setters
+void Registro::setMes(std::string _mes) { mes = _mes; }
+void Registro::setDia(std::string _dia) { dia = _dia; }
+void Registro::setHoras(std::string _hora) { horas = _hora; }
+void Registro::setMinutos(std::string _minutos) { minutos = _minutos; }
+void Registro::setSegundos(std::string _segundos) { segundos = _segundos; }
+void Registro::setIp(std::string _ip) { ip = _ip; }
+void Registro::setPuerto(std::string _puerto) { puerto = _puerto; }
+void Registro::setFalla(std::string _falla) { falla = _falla; }
 
-std::string Registro::getIp(){
-  return ip;
-}
+// Getters
+std::string Registro::getMes() { return mes; }
+std::string Registro::getDia() { return dia; }
+std::string Registro::getHoras() { return horas; }
+std::string Registro::getMinutos() { return minutos; }
+std::string Registro::getSegundos() { return segundos; }
+std::string Registro::getIp() { return ip; }
+std::string Registro::getPuerto() { return puerto; }
+std::string Registro::getFalla() { return falla; }
 
 std::string Registro::getAll() {
-  return mes + " " + dia + " " + horas + ":" + minutos + ":" + segundos + " " + ip + ":" + puerto + " " + falla;
+  return mes + " " + dia + " " + horas + ":" + minutos + ":" + segundos + " " +
+         ip + ":" + puerto + " " + falla;
 }
 
 // Sobrecarga de operadores de comparacion
