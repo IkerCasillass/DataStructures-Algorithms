@@ -6,6 +6,7 @@
 // transformar una fecha a numero decimal
 #include <ctime>  
 #include <iostream>
+#include "AlgorithmSort.h"
 
 //Representar un evento (registro) dentro de la bitacora
 class Registro {
@@ -22,6 +23,8 @@ class Registro {
     Registro();
     Registro(std::string _mes, std::string _dia, std::string _horas, std::string _minutos, std::string _segundos, std::string _ip, std::string _puerto, std::string _falla);
     std::string getAll();
+  void insertionSort(std::vector<T> &A, int n, unsigned int &compara,
+                       unsigned int &swap);
 
     void setMes(std::string);
     void setDia(std::string);

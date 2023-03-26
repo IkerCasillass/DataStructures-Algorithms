@@ -26,7 +26,9 @@
 #include <sstream> // facilita separar el string
 
 //Funciones de archivo principal
-std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
+std::vector<Registro> 
+
+leerDatos(std::vector<Registro> &listaRegistros){
   //Pasamos vector por referencia para modificarlo
   
   std::string linea;
@@ -61,7 +63,8 @@ std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
           
       std::string error;
       error = error1 + " " + error2+ " " + error3+ " " + error4+ " " + error5+ " " + error6;
-      
+
+      //Guardando datos en vector de Registros
       registrotemp.setMes(mes);
       registrotemp.setDia(dia);
       registrotemp.setHoras(horas);
