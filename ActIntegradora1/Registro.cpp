@@ -46,7 +46,7 @@ Registro::Registro(std::string _mes, std::string _dia, std::string _horas,
 // Setters
 void Registro::setMes(std::string _mes) { mes = _mes; }
 void Registro::setDia(std::string _dia) { dia = _dia; }
-void Registro::setHoras(std::string _hora) { horas = _hora; }
+void Registro::setHoras(std::string _horas) { horas = _horas; }
 void Registro::setMinutos(std::string _minutos) { minutos = _minutos; }
 void Registro::setSegundos(std::string _segundos) { segundos = _segundos; }
 void Registro::setIp(std::string _ip) { ip = _ip; }

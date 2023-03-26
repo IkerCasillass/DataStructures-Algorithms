@@ -32,8 +32,11 @@ std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
   std::string linea;
   std::string mes;
   std::string dia;
-  std::string hora;
+  std::string horas;
+  std::string minutos;
+  std::string segundos;
   std::string ip;
+  std::string puerto;
   std::string error1;
   std::string error2;
   std::string error3;
@@ -54,11 +57,20 @@ std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
       
       // Los agregamos al vector de registros
       std::istringstream ss(linea);
-      ss>>mes>>dia>>hora>>ip>>error1>>error2>>error3>>error4>>error5>>error6;
+      ss>>mes>>dia>>horas>>ip>>error1>>error2>>error3>>error4>>error5>>error6;
           
       std::string error;
       error = error1 + " " + error2+ " " + error3+ " " + error4+ " " + error5+ " " + error6;
+      
+      registrotemp.setMes(mes);
+      registrotemp.setDia(dia);
+      registrotemp.setHoras(horas);
+      registrotemp.setMinutos(minutos);
+      registrotemp.setSegundos(segundos);
+      registrotemp.setHoras(horas);
       registrotemp.setIp(ip);
+      registrotemp.setPuerto(puerto);
+      registrotemp.setFalla(error);
       listaRegistros.push_back(registrotemp);
       i++;
   }
@@ -86,8 +98,8 @@ int main() {
   size = listaRegistros.size();
   std::cout<<size<<std::endl;
   
-  for(int i = 0; i<10; i++) {
-    std::cout <<listaRegistros[i].getIp() <<std::endl;
+  for(int i = 0; i<3; i++) {
+    std::cout <<listaRegistros[i].getAll() << std::endl;
   }
   
 
