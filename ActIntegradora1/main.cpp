@@ -107,29 +107,29 @@ int main() {
 
   AlgorithmSort<Registro>sortObj;
   std::cout <<"\nOrdenando lista...\n"<<std::endl;
-  std::cout <<"-- InsertionSort --"<<std::endl;
+  std::cout <<"---- Quicksort ----"<<std::endl;
+  comparaciones = swaps = 0;
   auto startTime = std::chrono::high_resolution_clock::now(); //Iniciar tiempo
-  sortObj.insertionSort(listaRegistros1, size, comparaciones, swaps); //Ordenar por insertion sort
+  sortObj.quickSort(listaRegistros2, 0, size-1, comparaciones, swaps); //Ordenar con quicksort
   auto endTime = std::chrono::high_resolution_clock::now(); //Termina tiempo ejecucion
   auto totalTime = endTime - startTime;
 
-  
-  std::cout<<listaRegistros1[0].getFechaHora()<<std::endl;
   std::cout<<"comparaciones: "<<comparaciones <<std::endl;
   std::cout<<"swaps: "<<swaps <<std::endl;
   std::cout<<"Tiempo de ejecucion en ms: " << totalTime/std::chrono::milliseconds(1)<<std::endl;
 
-  std::cout <<"---- Quicksort ----"<<std::endl;
-  comparaciones = swaps = 0;
+
+  std::cout <<"\n-- InsertionSort -- (aprox 90s)"<<std::endl;
   startTime = std::chrono::high_resolution_clock::now(); //Iniciar tiempo
-  sortObj.quickSort(listaRegistros2, 0, size-1, comparaciones, swaps); //Ordenar con quicksort
+  sortObj.insertionSort(listaRegistros1, size, comparaciones, swaps); //Ordenar por insertion sort
   endTime = std::chrono::high_resolution_clock::now(); //Termina tiempo ejecucion
   totalTime = endTime - startTime;
 
-  std::cout<<listaRegistros2[0].getFechaHora()<<std::endl;
   std::cout<<"comparaciones: "<<comparaciones <<std::endl;
   std::cout<<"swaps: "<<swaps <<std::endl;
   std::cout<<"Tiempo de ejecucion en ms: " << totalTime/std::chrono::milliseconds(1)<<std::endl;
+
+  
 
 
   
