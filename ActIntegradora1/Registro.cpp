@@ -41,6 +41,15 @@ Registro::Registro(std::string _mes, std::string _dia, std::string _horas, std::
   fechaHora = mktime(&dateStruct);
 }
 
+//setters - getters
+void Registro::setIp(std::string _ip) {
+  ip = _ip;
+}
+
+std::string Registro::getIp(){
+  return ip;
+}
+
 std::string Registro::getAll() {
   return mes + " " + dia + " " + horas + ":" + minutos + ":" + segundos + " " + ip + ":" + puerto + " " + falla;
 }

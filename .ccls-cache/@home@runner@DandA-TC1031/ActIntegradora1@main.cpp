@@ -12,7 +12,7 @@
 * Compilacion para ejecucion:  
 *    g++ -std=c++17 -O3 -o main *.cpp 
 * Ejecucion:
-*    ./main < TestCases/bitacora.txt
+*    ./main
 
 
 
@@ -22,6 +22,39 @@
 **/
 #include <iostream>
 #include "Registro.h"
+#include <fstream> // ayuda en lectura de archivo
+#include <sstream> // facilita separar el string
+
+//Funciones de archivo principal
+void leerDatos(std::vector<Registro> listaRegistro){
+    std::string linea;
+    std::string mes;
+    std::string dia;
+    std::string hora;
+    std::string ip;
+    std::string error1;
+    std::string error2;
+    std::string error3;
+    std::string error4;
+    std::string error5;
+    std::string error6;
+
+    //Leer archivo
+    std::string nombreArchivo = "bitacora.txt";
+    std::ifstream archivo(nombreArchivo.c_str());
+  
+    // Obtener línea de archivo, y almacenar contenido en "linea"
+    while (getline(archivo, linea)) {
+      
+      // Los agregamos al vector de registros
+      std::stringstream ss(linea);
+      ss>>mes>>dia>>hora>>ip>>error1>>error2>>error3>>error4>>error5>>error6;
+          
+      std::string error;
+      error = error1 + " " + error2+ " " + error3+ " " + error4+ " " + error5+ " " + error6;
+    }
+}
+
 
 int main() {
   // Crear objetos de la clase Registro (un renglon de la bitacora)
@@ -33,11 +66,16 @@ int main() {
   std::cout << "Key " << std::endl;
   std::cout << key.getAll() << std::endl;
 
-  
   std::vector<Registro> listaRegistros;
   listaRegistros.push_back(a);
   listaRegistros.push_back(b);
   listaRegistros.push_back(c);
+
+
+
+  
+  
+
   
   // Comparacion de dos objetos de la clase registro
   // gracias a la sobrecarga de operadores de comparacion
