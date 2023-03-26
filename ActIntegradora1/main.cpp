@@ -24,11 +24,11 @@
 #include "Registro.h"
 #include <fstream> // ayuda en lectura de archivo
 #include <sstream> // facilita separar el string
-
+#include "AlgorithmSort.h"
 //Funciones de archivo principal
-std::vector<Registro> 
+ 
 
-leerDatos(std::vector<Registro> &listaRegistros){
+std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
   //Pasamos vector por referencia para modificarlo
   
   std::string linea;
@@ -60,22 +60,31 @@ leerDatos(std::vector<Registro> &listaRegistros){
       // Los agregamos al vector de registros
       std::istringstream ss(linea);
       ss>>mes>>dia>>horas>>ip>>error1>>error2>>error3>>error4>>error5>>error6;
-          
+
+      //Separando horas/minutos/segundos
+      std::stringstream input_stringstream(horas);   
+
+      getline(input_stringstream, horas, ':');
+      getline(input_stringstream, minutos, ':');
+      getline(input_stringstream, segundos, ':');
+
+      
       std::string error;
       error = error1 + " " + error2+ " " + error3+ " " + error4+ " " + error5+ " " + error6;
 
+      //Registro registrotemp("", "", "", "", "", "", "", "");
+      
       //Guardando datos en vector de Registros
       registrotemp.setMes(mes);
       registrotemp.setDia(dia);
       registrotemp.setHoras(horas);
       registrotemp.setMinutos(minutos);
       registrotemp.setSegundos(segundos);
-      registrotemp.setHoras(horas);
       registrotemp.setIp(ip);
       registrotemp.setPuerto(puerto);
       registrotemp.setFalla(error);
+      
       listaRegistros.push_back(registrotemp);
-      i++;
   }
     
   
@@ -86,11 +95,12 @@ leerDatos(std::vector<Registro> &listaRegistros){
 
 
 int main() {
+
+  unsigned int comparaciones, swaps;
   // Crear objetos de la clase Registro (un renglon de la bitacora)
   Registro a("Jan", "01", "00", "01", "02", "1.1.1.1", "123", "Falla 1");
   Registro b("Feb", "04", "00", "01", "02", "1.1.1.3", "1234", "Falla 2");
   Registro c("Dec", "01", "00", "01", "02", "1.1.1.1", "123", "Falla 1");
-
   Registro key("Jan", "01", "00", "01", "02", "", "", "");
   std::cout << "Key " << std::endl;
   std::cout << key.getAll() << std::endl;
@@ -100,12 +110,25 @@ int main() {
   listaRegistros = leerDatos(listaRegistros);
   size = listaRegistros.size();
   std::cout<<size<<std::endl;
-  
+
+  std::cout <<listaRegistros[0].getMes()<<std::endl;
+  std::cout<<listaRegistros[0].getDia()<<std::endl;
+  std::cout<<listaRegistros[0].getMinutos()<<std::endl;
+  std::cout<<listaRegistros[0].getSegundos()<<std::endl;
+
+
+  AlgorithmSort<Registro>sortObj;
+  /*
   for(int i = 0; i<3; i++) {
     std::cout <<listaRegistros[i].getAll() << std::endl;
   }
-  
 
+  sortObj.insertionSort(listaRegistros, size, comparaciones, swaps);
+
+  for(int i = 0; i<3; i++) {
+    std::cout <<listaRegistros[i].getAll() << std::endl;
+  }
+  */
 
   /*listaRegistros.push_back(a);
   listaRegistros.push_back(b);

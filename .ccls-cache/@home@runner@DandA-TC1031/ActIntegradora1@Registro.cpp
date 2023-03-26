@@ -62,11 +62,15 @@ std::string Registro::getSegundos() { return segundos; }
 std::string Registro::getIp() { return ip; }
 std::string Registro::getPuerto() { return puerto; }
 std::string Registro::getFalla() { return falla; }
+time_t Registro::getFechaHora(){ return fechaHora; }
 
 std::string Registro::getAll() {
   return mes + " " + dia + " " + horas + ":" + minutos + ":" + segundos + " " +
          ip + ":" + puerto + " " + falla;
 }
+
+//Ordenamiento
+
 
 // Sobrecarga de operadores de comparacion
 // Comparacion de objetos de la clase Registro usando el Linux timestamp
