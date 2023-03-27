@@ -113,7 +113,7 @@ std::vector<Registro> Ordenar(std::vector<Registro> &listaRegistros, int size){
   std::cout<<"Tiempo de ejecucion en ms: " << totalTime/std::chrono::milliseconds(1)<<std::endl;
 
 
-  /*std::cout <<"\n-- InsertionSort -- (aprox 85 +- 10s)"<<std::endl;
+  std::cout <<"\n-- InsertionSort -- (aprox 85 +- 10s)"<<std::endl;
   startTime = std::chrono::high_resolution_clock::now(); //Iniciar tiempo
   sortObj.insertionSort(listaRegistros2, size, comparaciones, swaps); //Ordenar por insertion sort
   endTime = std::chrono::high_resolution_clock::now(); //Termina tiempo ejecucion
@@ -122,7 +122,6 @@ std::vector<Registro> Ordenar(std::vector<Registro> &listaRegistros, int size){
   std::cout<<"comparaciones: "<<comparaciones <<std::endl;
   std::cout<<"swaps: "<<swaps <<std::endl;
   std::cout<<"Tiempo de ejecucion en ms: " << totalTime/std::chrono::milliseconds(1)<<std::endl;
-*/
 
   return listaRegistros1;
 }
@@ -196,6 +195,18 @@ int main() {
   size = listaRegistros.size();
 
   listaOrdenada = Ordenar(listaRegistros, size);
+
+  //lista ordenada a archivo
+  std::fstream file;
+  
+    file.open("bitacora_ordenada.txt",std::ios_base::out);
+ 
+    for(int i=0;i<listaOrdenada.size();i++)
+    {
+        std::string actual = listaOrdenada[i].getAll();
+        file<<actual<<std::endl; 
+    }
+    file.close();
   
   buscar(listaOrdenada);
   
