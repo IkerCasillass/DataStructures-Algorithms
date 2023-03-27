@@ -20,11 +20,12 @@
 * César Simental | A01641385
 **/
 #include <iostream>
-#include "Registro.h"
+#include <chrono>
 #include <fstream> // ayuda en lectura y escritura de archivo
 #include <sstream> // facilita separar el string
+#include "Registro.h"
 #include "AlgorithmSort.h"
-#include <chrono>
+
 
 
 //Funciones de archivo principal
