@@ -14,26 +14,21 @@ private:
 
 public:
   AlgorithmSort();
-  void randomShuffle(std::vector<T> &A);
   void printVector(std::vector<T> A);
   void swapSort(std::vector<T> &A, int n, unsigned int &compara,
                 unsigned int &swap);
-  void selectionSort(std::vector<T> &A, int n, unsigned int &compara,
-                     unsigned int &swap);
-  void bubbleSort(std::vector<T> &A, int n, unsigned int &compara,
-                  unsigned int &swap);
+
   void insertionSort(std::vector<T> &A, int n, unsigned int &compara,
                      unsigned int &swap);
   void mergeSort(std::vector<T> &A, int low, int high, unsigned int &compara);
   void quickSort(std::vector<T> &A, int low, int high, unsigned int &compara, unsigned int &swap);
+
+  //search
+  int binarySearch(const std::vector<int> &vectorSorted, int key, int &compara);
+
 };
 
 template <class T> AlgorithmSort<T>::AlgorithmSort() {}
-
-// Mezcla los elementos del vector en forma aleatoria
-template <class T> void AlgorithmSort<T>::randomShuffle(std::vector<T> &A) {
-  std::shuffle(A.begin(), A.end(), std::random_device{});
-}
 
 // Imprime en pantalla los elementos del vector
 template <class T> void AlgorithmSort<T>::printVector(std::vector<T> A) {
@@ -53,38 +48,6 @@ void AlgorithmSort<T>::swapSort(std::vector<T> &A, int n, unsigned int &compara,
       compara++;
       if (A[i] > A[j]) {
         std::swap(A[i], A[j]);
-        swap++;
-      }
-    }
-  }
-}
-
-template <class T>
-void AlgorithmSort<T>::selectionSort(std::vector<T> &A, int n,
-                                     unsigned int &compara,
-                                     unsigned int &swap) {
-  compara = swap = 0;
-  for (int i = 0; i < n - 1; i++) {
-    int minIndex = i;
-    for (int j = i + 1; j < n; j++) {
-      compara++;
-      if (A[j] < A[minIndex])
-        minIndex = j;
-    }
-    std::swap(A[i], A[minIndex]);
-    swap++;
-  }
-}
-
-template <class T>
-void AlgorithmSort<T>::bubbleSort(std::vector<T> &A, int n,
-                                  unsigned int &compara, unsigned int &swap) {
-  compara = swap = 0;
-  for (int i = 0; i < n - 1; i++) {
-    for (int j = 0; j < n - i - 1; j++) {
-      compara++;
-      if (A[j] > A[j + 1]) {
-        std::swap(A[j], A[j + 1]);
         swap++;
       }
     }
@@ -191,4 +154,25 @@ void AlgorithmSort<T>::quickSort(std::vector<T> &A, int low, int high, unsigned 
     quickSort(A, pi+1, high, compara, swap);
   }
 }
+
+template <class T>
+int AlgorithmSort<T>::binarySearch(const std::vector<int> &vectorSorted, int key, int &compara) {
+  int low = 0;
+  int high = vectorSorted.size() - 1;
+  int mid = 0;
+  compara = 0;
+  while (low <= high) {
+    mid = low + (high - low) / 2;
+    compara++;
+    if (key == vectorSorted[mid])
+      return mid;
+    else if (key < vectorSorted[mid])
+      high = mid - 1;
+    else
+      low = mid + 1;
+  }
+  return -1;
+}
+
+
 #endif // _ALGORITMO_SORT_H_

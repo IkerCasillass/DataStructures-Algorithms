@@ -26,8 +26,17 @@
 #include <sstream> // facilita separar el string
 #include "AlgorithmSort.h"
 #include<chrono>
+
+
 //Funciones de archivo principal
- 
+void cambiarFormato(std::string cadena, std::string &hora, std::string &minuto, std::string &segundo){
+  //Separando horas/minutos/segundos
+  std::stringstream input_stringstream(cadena);   
+
+  getline(input_stringstream, hora, ':');
+  getline(input_stringstream, minuto, ':');
+  getline(input_stringstream, segundo, ':');
+}
 
 std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
   //Pasamos vector por referencia para modificarlo
@@ -62,21 +71,13 @@ std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
       std::istringstream ss(linea);
       ss>>mes>>dia>>horas>>ip>>error1>>error2>>error3>>error4>>error5>>error6;
 
-      //Separando horas/minutos/segundos
-      std::stringstream input_stringstream(horas);   
+      cambiarFormato(horas, horas, minutos, segundos);
 
-      getline(input_stringstream, horas, ':');
-      getline(input_stringstream, minutos, ':');
-      getline(input_stringstream, segundos, ':');
-
-      
       std::string error;
       error = error1 + " " + error2+ " " + error3+ " " + error4+ " " + error5+ " " + error6;
 
       //Registro temporal
       Registro registrotemp(mes, dia, horas, minutos, segundos, ip, puerto, error);
-      
-
       
       listaRegistros.push_back(registrotemp);
   }
@@ -105,7 +106,7 @@ std::vector<Registro> Ordenar(std::vector<Registro> &listaRegistros, int size){
   std::cout<<"Tiempo de ejecucion en ms: " << totalTime/std::chrono::milliseconds(1)<<std::endl;
 
 
-  std::cout <<"\n-- InsertionSort -- (aprox 85 +- 8s)"<<std::endl;
+  std::cout <<"\n-- InsertionSort -- (aprox 85 +- 10s)"<<std::endl;
   startTime = std::chrono::high_resolution_clock::now(); //Iniciar tiempo
   sortObj.insertionSort(listaRegistros2, size, comparaciones, swaps); //Ordenar por insertion sort
   endTime = std::chrono::high_resolution_clock::now(); //Termina tiempo ejecucion
@@ -119,6 +120,17 @@ std::vector<Registro> Ordenar(std::vector<Registro> &listaRegistros, int size){
   return listaRegistros1;
 }
 
+void buscar(){
+  std::string fecha_inicial, fecha_final;
+  std::cout<<"----------------------------------"<<std::endl;
+  std::cout<<"--------Busqueda por fecha--------\n"<<std::endl;
+  std::cout<<"Ingresa la fecha incial (mes dd hh:mm:ss): "<<std::endl;
+  std::cin>>fecha_inicial;
+  std::cout<<"Ingresa la fecha final (mes dd hh:mm:ss): "<<std::endl;
+  std::cin>>fecha_final;
+  
+}
+
 int main() {
 
   unsigned int comparaciones, swaps;
@@ -127,8 +139,11 @@ int main() {
 
   listaRegistros = leerDatos(listaRegistros);
   size = listaRegistros.size();
-
+  std::cout<<listaRegistros[0].getFechaHora()<<std::endl;
+  std::cout<<listaRegistros[16000].getFechaHora()<<std::endl;
+  
   listaOrdenada = Ordenar(listaRegistros, size);
+  
 
 
   
