@@ -80,6 +80,14 @@ std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
       Registro registrotemp(mes, dia, horas, minutos, segundos, ip, puerto, error);
       
       listaRegistros.push_back(registrotemp);
+
+      //Borrar caracteres del string para nueva cadena de error
+      error1 = "";
+      error2 = "";
+      error3 = "";
+      error4 = "";
+      error5 = "";
+      error6 = "";
   }
 
   }
