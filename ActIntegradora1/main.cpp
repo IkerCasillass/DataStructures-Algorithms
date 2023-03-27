@@ -122,9 +122,9 @@ std::vector<Registro> Ordenar(std::vector<Registro> &listaRegistros, int size){
 
 void buscar(std::vector<Registro> vectorSorted){
   std::string fecha_inicial, fecha_final, mes, dia, horas, minutos, segundos;
-  int compara = 0, indice_inicial = 0, indice_final = 0;
+  int compara = 0, indice_inicial = 0, indice_final = 0, rango = 0;
   
-  std::cout<<"----------------------------------"<<std::endl;
+  std::cout<<"\n----------------------------------"<<std::endl;
   std::cout<<"--------Busqueda por fecha--------\n"<<std::endl;
   std::cout<<"Ingresa la fecha incial (Mes dd hh:mm:ss): "<<std::endl;
   std::getline(std::cin, fecha_inicial);
@@ -143,9 +143,9 @@ void buscar(std::vector<Registro> vectorSorted){
   indice_inicial = Registro_inicial.binarySearch(vectorSorted, Registro_inicial.getFechaHora(), compara);
 
   if(indice_inicial == -1)
-    std::cout<<"La fecha inicial no se encuentra en el archivo" <<std::endl;
+    std::cout<<"\nLa fecha inicial no se encuentra en el archivo" <<std::endl;
   else{
-    std::cout<<"Fecha inicial encontrada en indice " << indice_inicial <<std::endl;
+    std::cout<<"\nFecha inicial encontrada en indice " << indice_inicial <<std::endl;
   }
 
 
@@ -162,7 +162,13 @@ void buscar(std::vector<Registro> vectorSorted){
   else{
     std::cout<<"Fecha final encontrada en indice " << indice_final <<std::endl;
   }
-  
+
+  //Mostrar datos
+  rango = indice_final - indice_inicial;
+  std::cout<<"\nMostrando " << rango+1 << " resultados:\n" << std::endl;
+  for(int i=indice_inicial; i<indice_final+1; i++){
+    std::cout<<vectorSorted[i].getAll()<<std::endl;
+  }
 }
 
 int main() {
