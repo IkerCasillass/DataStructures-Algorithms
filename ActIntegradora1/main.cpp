@@ -1,8 +1,4 @@
 /** 
-* Ejemplo que implementa objetos de la clase Registro
-* que contienen una fecha-hora convertida a Linux timestamp
-* para realizar comparaciones (sobrecarga de operadores)
-*
 * Compilacion para debug:  
 *    g++ -std=c++17 -g -o main *.cpp 
 * Ejecucion con valgrind:
@@ -23,6 +19,7 @@
 #include <chrono>
 #include <fstream> // ayuda en lectura y escritura de archivo
 #include <sstream> // facilita separar el string
+#include <stdlib.h> //exit
 #include "Registro.h"
 #include "AlgorithmSort.h"
 
@@ -67,18 +64,20 @@ std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
     // Obtener línea de archivo, y almacenar contenido en "linea"
     while (getline(bitacora, linea)) {
       
-      // Los agregamos al vector de registros
       std::istringstream ss(linea);
+      //Obtenemos los datos que estan separados por espacios
       ss>>mes>>dia>>horas>>ip>>error1>>error2>>error3>>error4>>error5>>error6;
 
       cambiarFormato(horas, horas, minutos, segundos);
 
       std::string error;
+      //Juntamos las palabras del error en una sola cadena
       error = error1 + " " + error2+ " " + error3+ " " + error4+ " " + error5+ " " + error6;
 
       //Registro temporal
       Registro registrotemp(mes, dia, horas, minutos, segundos, ip, puerto, error);
-      
+
+      //Añadiendo los registros al vector
       listaRegistros.push_back(registrotemp);
 
       //Borrar caracteres del string para nueva cadena de error
@@ -148,10 +147,14 @@ void buscar(std::vector<Registro> vectorSorted){
   
   //Crear Registro_inicial
   Registro Registro_inicial(mes, dia, horas, minutos, segundos, "", "", "");
+
+  //búsqueda binarysearch
   indice_inicial = Registro_inicial.binarySearch(vectorSorted, Registro_inicial.getFechaHora(), compara);
 
-  if(indice_inicial == -1)
-    std::cout<<"\nLa fecha inicial no se encuentra en el archivo" <<std::endl;
+  if(indice_inicial == -1){
+    std::cout<<"\nLa fecha inicial no se encuentra en el archivo, ingrese un rango valido" <<std::endl;
+    exit(0);
+  }
   else{
     std::cout<<"\nFecha inicial encontrada en indice " << indice_inicial <<std::endl;
   }
@@ -164,9 +167,13 @@ void buscar(std::vector<Registro> vectorSorted){
 
   //Crear Registro_final
   Registro Registro_final(mes, dia, horas, minutos, segundos, "", "", "");
+  
+  //búsqueda binarysearch
   indice_final = Registro_final.binarySearch(vectorSorted, Registro_final.getFechaHora(), compara);
-  if(indice_final == -1)
-    std::cout<<"La fecha final no se encuentra en el archivo" <<std::endl;
+  if(indice_final == -1) {
+    std::cout<<"La fecha final no se encuentra en el archivo, ingrese un rango valido" <<std::endl;
+    exit(0);
+  }
   else{
     std::cout<<"Fecha final encontrada en indice " << indice_final <<std::endl;
   }
