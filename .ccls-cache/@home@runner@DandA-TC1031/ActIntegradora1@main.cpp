@@ -120,15 +120,48 @@ std::vector<Registro> Ordenar(std::vector<Registro> &listaRegistros, int size){
   return listaRegistros1;
 }
 
-void buscar(){
-  std::string fecha_inicial, fecha_final;
+void buscar(std::vector<Registro> vectorSorted){
+  std::string fecha_inicial, fecha_final, mes, dia, horas, minutos, segundos;
+  int compara = 0, indice = 0;
+  
   std::cout<<"----------------------------------"<<std::endl;
   std::cout<<"--------Busqueda por fecha--------\n"<<std::endl;
-  std::cout<<"Ingresa la fecha incial (mes dd hh:mm:ss): "<<std::endl;
+  std::cout<<"Ingresa la fecha incial (Mes dd hh:mm:ss): "<<std::endl;
   std::cin>>fecha_inicial;
-  std::cout<<"Ingresa la fecha final (mes dd hh:mm:ss): "<<std::endl;
+  std::cout<<"Ingresa la fecha final (Mes dd hh:mm:ss): "<<std::endl;
   std::cin>>fecha_final;
-  
+
+  //convertir a formato deseado
+  std::istringstream fi(fecha_inicial);
+  fi>>mes>>dia>>horas;
+  cambiarFormato(horas, horas, minutos, segundos);
+
+  //Crear Registro_inicial
+  Registro Registro_inicial(mes, dia, horas, minutos, segundos, "", "", "");
+
+  AlgorithmSort<Registro> SortObj;
+  //indice = SortObj.binarySearch(vectorSorted, Registro_inicial.getFechaHora(), compara);
+
+  if(indice == -1)
+    std::cout<<"La fecha inicial no se encuentra en el archivo" <<std::endl;
+  else{
+    std::cout<<"Fecha inicial encontrada en indice " << indice <<std::endl;
+  }
+
+
+  //convertir fecha final a formato deseado
+  std::istringstream ff(fecha_final);
+  ff>>mes>>dia>>horas;
+  cambiarFormato(horas, horas, minutos, segundos);
+
+  //Crear Registro_final
+  Registro Registro_final(mes, dia, horas, minutos, segundos, "", "", "");
+  if(indice == -1)
+    std::cout<<"La fecha final no se encuentra en el archivo" <<std::endl;
+  else{
+    std::cout<<"Fecha final encontrada en indice " << indice <<std::endl;
+  }
+
 }
 
 int main() {

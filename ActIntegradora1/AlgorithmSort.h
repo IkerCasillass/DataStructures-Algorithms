@@ -24,7 +24,7 @@ public:
   void quickSort(std::vector<T> &A, int low, int high, unsigned int &compara, unsigned int &swap);
 
   //search
-  int binarySearch(const std::vector<int> &vectorSorted, int key, int &compara);
+  int binarySearch(std::vector<T> &vectorSorted, int key, int &compara);
 
 };
 
@@ -156,7 +156,7 @@ void AlgorithmSort<T>::quickSort(std::vector<T> &A, int low, int high, unsigned 
 }
 
 template <class T>
-int AlgorithmSort<T>::binarySearch(const std::vector<int> &vectorSorted, int key, int &compara) {
+int AlgorithmSort<T>::binarySearch(std::vector<T> &vectorSorted, int key, int &compara) {
   int low = 0;
   int high = vectorSorted.size() - 1;
   int mid = 0;
@@ -164,15 +164,17 @@ int AlgorithmSort<T>::binarySearch(const std::vector<int> &vectorSorted, int key
   while (low <= high) {
     mid = low + (high - low) / 2;
     compara++;
-    if (key == vectorSorted[mid])
+    if (key == vectorSorted[mid].getFechaHora())
       return mid;
-    else if (key < vectorSorted[mid])
+    else if (key < vectorSorted[mid].getFechaHora())
       high = mid - 1;
     else
       low = mid + 1;
   }
   return -1;
 }
+
+
 
 
 #endif // _ALGORITMO_SORT_H_
