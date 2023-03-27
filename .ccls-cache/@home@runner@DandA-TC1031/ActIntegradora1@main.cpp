@@ -106,7 +106,7 @@ std::vector<Registro> Ordenar(std::vector<Registro> &listaRegistros, int size){
   std::cout<<"Tiempo de ejecucion en ms: " << totalTime/std::chrono::milliseconds(1)<<std::endl;
 
 
-  std::cout <<"\n-- InsertionSort -- (aprox 85 +- 10s)"<<std::endl;
+  /*std::cout <<"\n-- InsertionSort -- (aprox 85 +- 10s)"<<std::endl;
   startTime = std::chrono::high_resolution_clock::now(); //Iniciar tiempo
   sortObj.insertionSort(listaRegistros2, size, comparaciones, swaps); //Ordenar por insertion sort
   endTime = std::chrono::high_resolution_clock::now(); //Termina tiempo ejecucion
@@ -115,37 +115,37 @@ std::vector<Registro> Ordenar(std::vector<Registro> &listaRegistros, int size){
   std::cout<<"comparaciones: "<<comparaciones <<std::endl;
   std::cout<<"swaps: "<<swaps <<std::endl;
   std::cout<<"Tiempo de ejecucion en ms: " << totalTime/std::chrono::milliseconds(1)<<std::endl;
-
+*/
 
   return listaRegistros1;
 }
 
 void buscar(std::vector<Registro> vectorSorted){
   std::string fecha_inicial, fecha_final, mes, dia, horas, minutos, segundos;
-  int compara = 0, indice = 0;
+  int compara = 0, indice_inicial = 0, indice_final = 0;
   
   std::cout<<"----------------------------------"<<std::endl;
   std::cout<<"--------Busqueda por fecha--------\n"<<std::endl;
   std::cout<<"Ingresa la fecha incial (Mes dd hh:mm:ss): "<<std::endl;
-  std::cin>>fecha_inicial;
+  std::getline(std::cin, fecha_inicial);
   std::cout<<"Ingresa la fecha final (Mes dd hh:mm:ss): "<<std::endl;
-  std::cin>>fecha_final;
+  std::getline(std::cin, fecha_final);
 
   //convertir a formato deseado
   std::istringstream fi(fecha_inicial);
   fi>>mes>>dia>>horas;
+
   cambiarFormato(horas, horas, minutos, segundos);
 
+  
   //Crear Registro_inicial
   Registro Registro_inicial(mes, dia, horas, minutos, segundos, "", "", "");
+  indice_inicial = Registro_inicial.binarySearch(vectorSorted, Registro_inicial.getFechaHora(), compara);
 
-  AlgorithmSort<Registro> SortObj;
-  //indice = SortObj.binarySearch(vectorSorted, Registro_inicial.getFechaHora(), compara);
-
-  if(indice == -1)
+  if(indice_inicial == -1)
     std::cout<<"La fecha inicial no se encuentra en el archivo" <<std::endl;
   else{
-    std::cout<<"Fecha inicial encontrada en indice " << indice <<std::endl;
+    std::cout<<"Fecha inicial encontrada en indice " << indice_inicial <<std::endl;
   }
 
 
@@ -156,12 +156,13 @@ void buscar(std::vector<Registro> vectorSorted){
 
   //Crear Registro_final
   Registro Registro_final(mes, dia, horas, minutos, segundos, "", "", "");
-  if(indice == -1)
+  indice_final = Registro_final.binarySearch(vectorSorted, Registro_final.getFechaHora(), compara);
+  if(indice_final == -1)
     std::cout<<"La fecha final no se encuentra en el archivo" <<std::endl;
   else{
-    std::cout<<"Fecha final encontrada en indice " << indice <<std::endl;
+    std::cout<<"Fecha final encontrada en indice " << indice_final <<std::endl;
   }
-
+  
 }
 
 int main() {
@@ -177,7 +178,7 @@ int main() {
   
   listaOrdenada = Ordenar(listaRegistros, size);
   
-
+  buscar(listaOrdenada);
 
   
   // Comparacion de dos objetos de la clase registro

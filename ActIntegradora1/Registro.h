@@ -44,6 +44,9 @@ class Registro {
     std::string getFalla();
     time_t getFechaHora();
 
+    //Otros
+    int binarySearch(std::vector<Registro> &vectorSorted, int key, int &compara);
+
 
 
 
