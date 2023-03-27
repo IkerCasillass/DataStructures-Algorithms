@@ -13,19 +13,18 @@
 *    g++ -std=c++17 -O3 -o main *.cpp 
 * Ejecucion:
 *    ./main
-
-
-
+*
+* ------------------------------------
 * Equipo 2:
 * Iker Casillas  | A01641047
 * César Simental | A01641385
 **/
 #include <iostream>
 #include "Registro.h"
-#include <fstream> // ayuda en lectura de archivo
+#include <fstream> // ayuda en lectura y escritura de archivo
 #include <sstream> // facilita separar el string
 #include "AlgorithmSort.h"
-#include<chrono>
+#include <chrono>
 
 
 //Funciones de archivo principal
@@ -173,7 +172,7 @@ void buscar(std::vector<Registro> vectorSorted){
 
   //Mostrar datos
   rango = indice_final - indice_inicial;
-  std::cout<<"\nMostrando " << rango+1 << " resultados:\n" << std::endl;
+  std::cout<<"\nMostrando " << rango+1 << " Registros:\n" << std::endl;
   for(int i=indice_inicial; i<indice_final+1; i++){
     std::cout<<vectorSorted[i].getAll()<<std::endl;
   }
@@ -187,27 +186,10 @@ int main() {
 
   listaRegistros = leerDatos(listaRegistros);
   size = listaRegistros.size();
-  std::cout<<listaRegistros[0].getFechaHora()<<std::endl;
-  std::cout<<listaRegistros[16000].getFechaHora()<<std::endl;
-  
+
   listaOrdenada = Ordenar(listaRegistros, size);
   
   buscar(listaOrdenada);
-
-  
-  // Comparacion de dos objetos de la clase registro
-  // gracias a la sobrecarga de operadores de comparacion
-  
-  /*if (listaRegistros[0] < listaRegistros[1]) std::cout << "a es menor que b" << std::endl;
-  if (listaRegistros[0] == listaRegistros[2]) std::cout << "a es igual a c" << std::endl;
-
-  
-  for (int i = 0; i < (int)listaRegistros.size(); i++) {
-    if (key == listaRegistros[i]) {
-      std::cout << "found in " << i << std::endl;
-      std::cout << listaRegistros[i].getAll() << std::endl;
-    }
-  }*/
   
   return 0;
   
