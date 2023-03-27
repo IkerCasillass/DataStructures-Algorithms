@@ -80,28 +80,14 @@ std::vector<Registro> leerDatos(std::vector<Registro> &listaRegistros){
       
       listaRegistros.push_back(registrotemp);
   }
-    
-  
 
   }
   return listaRegistros;
 }
+
 std::vector<Registro> Ordenar(std::vector<Registro> &listaRegistros, int size){
   unsigned int comparaciones, swaps;
-
-  return listaRegistros;
-}
-
-int main() {
-
-  unsigned int comparaciones, swaps;
-  int size;
-  std::vector<Registro> listaRegistros, listaRegistros1, listaRegistros2;
-
-  listaRegistros = leerDatos(listaRegistros);
-  size = listaRegistros.size();
-  //std::cout<<size<<std::endl;
-
+  std::vector<Registro> listaRegistros1, listaRegistros2;
   listaRegistros1 = listaRegistros;
   listaRegistros2 = listaRegistros;
 
@@ -110,7 +96,7 @@ int main() {
   std::cout <<"---- Quicksort ----"<<std::endl;
   comparaciones = swaps = 0;
   auto startTime = std::chrono::high_resolution_clock::now(); //Iniciar tiempo
-  sortObj.quickSort(listaRegistros2, 0, size-1, comparaciones, swaps); //Ordenar con quicksort
+  sortObj.quickSort(listaRegistros1, 0, size-1, comparaciones, swaps); //Ordenar con quicksort
   auto endTime = std::chrono::high_resolution_clock::now(); //Termina tiempo ejecucion
   auto totalTime = endTime - startTime;
 
@@ -119,9 +105,9 @@ int main() {
   std::cout<<"Tiempo de ejecucion en ms: " << totalTime/std::chrono::milliseconds(1)<<std::endl;
 
 
-  std::cout <<"\n-- InsertionSort -- (aprox 90s)"<<std::endl;
+  std::cout <<"\n-- InsertionSort -- (aprox 85 +- 8s)"<<std::endl;
   startTime = std::chrono::high_resolution_clock::now(); //Iniciar tiempo
-  sortObj.insertionSort(listaRegistros1, size, comparaciones, swaps); //Ordenar por insertion sort
+  sortObj.insertionSort(listaRegistros2, size, comparaciones, swaps); //Ordenar por insertion sort
   endTime = std::chrono::high_resolution_clock::now(); //Termina tiempo ejecucion
   totalTime = endTime - startTime;
 
@@ -129,11 +115,21 @@ int main() {
   std::cout<<"swaps: "<<swaps <<std::endl;
   std::cout<<"Tiempo de ejecucion en ms: " << totalTime/std::chrono::milliseconds(1)<<std::endl;
 
-  
 
+  return listaRegistros1;
+}
 
-  
-  
+int main() {
+
+  unsigned int comparaciones, swaps;
+  int size;
+  std::vector<Registro> listaRegistros, listaOrdenada;
+
+  listaRegistros = leerDatos(listaRegistros);
+  size = listaRegistros.size();
+
+  listaOrdenada = Ordenar(listaRegistros, size);
+
 
   
   // Comparacion de dos objetos de la clase registro
