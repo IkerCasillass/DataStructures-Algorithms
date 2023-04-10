@@ -8,7 +8,8 @@
 
 template <class T> class AlgorithmSort {
 private:
-  int partition(std::vector<T> &A, int low, int high, unsigned int &compara, unsigned int &swap);
+  int partition(std::vector<T> &A, int low, int high, unsigned int &compara,
+                unsigned int &swap);
 
 public:
   AlgorithmSort();
@@ -17,8 +18,8 @@ public:
   void insertionSort(std::vector<T> &A, int n, unsigned int &compara,
                      unsigned int &swap);
 
-  void quickSort(std::vector<T> &A, int low, int high, unsigned int &compara, unsigned int &swap);
-
+  void quickSort(std::vector<T> &A, int low, int high, unsigned int &compara,
+                 unsigned int &swap);
 };
 
 template <class T> AlgorithmSort<T>::AlgorithmSort() {}
@@ -53,36 +54,34 @@ void AlgorithmSort<T>::insertionSort(std::vector<T> &A, int n,
 }
 
 template <class T>
-int AlgorithmSort<T>::partition(std::vector<T> &A, int low, int high, unsigned int &compara, unsigned int &swap) {
-  
+int AlgorithmSort<T>::partition(std::vector<T> &A, int low, int high,
+                                unsigned int &compara, unsigned int &swap) {
+
   T pivot = A[high];
   int i = low - 1;
-  for (int j = low; j<high; j++){
+  for (int j = low; j < high; j++) {
     compara++;
-    if (A[j] < pivot ){
+    if (A[j] < pivot) {
       i++;
       std::swap(A[i], A[j]);
       swap++;
     }
   }
-  std::swap(A[i+1], A[high]);
+  std::swap(A[i + 1], A[high]);
   swap++;
-  return i+1;
+  return i + 1;
 }
 
 template <class T>
-void AlgorithmSort<T>::quickSort(std::vector<T> &A, int low, int high, unsigned int &compara, unsigned int &swap) {
+void AlgorithmSort<T>::quickSort(std::vector<T> &A, int low, int high,
+                                 unsigned int &compara, unsigned int &swap) {
   if (low < high) {
     // encontrar la particion
     int pi = partition(A, low, high, compara, swap);
     // ordenar la mitad izquierda y derecha
-    quickSort(A, low, pi-1, compara, swap);
-    quickSort(A, pi+1, high, compara, swap);
+    quickSort(A, low, pi - 1, compara, swap);
+    quickSort(A, pi + 1, high, compara, swap);
   }
 }
-
-
-
-
 
 #endif // _ALGORITMO_SORT_H_
