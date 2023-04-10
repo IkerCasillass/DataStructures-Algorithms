@@ -28,7 +28,8 @@ class LinkedList {
     //void updateAt(int position, T newValue);
     //int findData(T value);
     // T findMiddleElement();
-    //void operator =(const LinkedList<T> &other);   // copy constructor
+    // https://www.delftstack.com/howto/cpp/copy-constructor-of-linked-list-in-cpp/
+    //LinkedList(const LinkedList<T> &other);   // copy constructor
     
   
 };
@@ -160,7 +161,7 @@ bool LinkedList<T>::deleteAt(int position) {
     p = nullptr;
     numElements--;
     return true;
-  } else { // borrar cualquir otro elemento de la lista
+  } else { // borrar cualquier otro elemento de la lista
     NodeLinkedList<T> *p = head;
     NodeLinkedList<T> *prev = nullptr;
     int index = 0;
@@ -209,3 +210,16 @@ template <class T> T LinkedList<T>::getData(int position) {
 
 
 #endif // _LINKEDLIST_H_
+
+
+
+
+
+
+
+
+
+
+
+
+
