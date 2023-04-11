@@ -22,9 +22,12 @@ class LinkedList {
     bool deleteData(T value);
     bool deleteAt(int position);
     T getData(int position);
+    void updateData(T value, T newValue);
+    int findData(T value);
+    T findMiddleElement();
 
     // TO-DO
-    //void updateData(T value, T newValue);
+    
     //void updateAt(int position, T newValue);
     //int findData(T value);
     // T findMiddleElement();
@@ -145,6 +148,26 @@ bool LinkedList<T>::deleteData(T value) {
 
 // Complejidad O(n)
 template <class T>
+void LinkedList<T>::updateData(T value, T newValue) {
+  // La lista esta vacia
+  if (head == nullptr && tail == nullptr){}
+  
+  else {
+    NodeLinkedList<T> *p = head;
+    NodeLinkedList<T> *prev = nullptr;
+    while (p != nullptr && p->data != value) {
+      prev = p;
+      p = p->next;
+    }
+    // si no existe value en la lista
+    if (p == nullptr){}
+    // remplazo el valor anterior por el nuevo
+    else p->data = newValue;
+  }
+}
+
+// Complejidad O(n)
+template <class T>
 bool LinkedList<T>::deleteAt(int position) {
   if (position < 0 || position >= numElements) {
     throw std::out_of_range("Indice fuera de rango");
@@ -204,6 +227,44 @@ template <class T> T LinkedList<T>::getData(int position) {
     }
     return {};
   }
+}
+
+
+
+// -- Metodos FIND --
+template<class T>
+int LinkedList<T>::findData(T value){
+  	int indice = 0;
+  
+  // La lista esta vacia
+  if (head == nullptr && tail == nullptr){
+    return -1;
+  }
+  
+  else {
+    NodeLinkedList<T> *p = head;
+    NodeLinkedList<T> *prev = nullptr;
+    while (p != nullptr && p->data != value) {
+      prev = p;
+      p = p->next;
+      indice++;
+    }
+    // si no existe value en la lista
+    if (p == nullptr){
+      return -1;
+    }
+    // remplazo el valor anterior por el nuevo
+    else{
+      return indice;
+    }
+  }
+  return 0;
+}
+
+template<class T>
+T LinkedList<T>::findMiddleElement(){
+
+  return 0;
 }
 
 

@@ -4,7 +4,7 @@
  * Compilacion para debug:
  *    g++ -std=c++17 -Wall -g -o main *.cpp
  * Ejecucion con valgrind:
- *    nix-env -iA nixpkgs.valgrind
+ *    nix-env -iA nixpkgs.valgrind 
  *    valgrind --leak-check=full ./main
  *
  * Compilacion para ejecucion:
