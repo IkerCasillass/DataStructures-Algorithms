@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <vector>
 #include "NodeLinkedList.h"
 
 template <class T> 
@@ -14,6 +15,7 @@ class LinkedList {
   
   public:
     LinkedList();
+    LinkedList(const LinkedList<T> &other);
     ~LinkedList();
     int getNumElements();
     void printList();
@@ -24,7 +26,7 @@ class LinkedList {
     T getData(int position);
     void updateData(T value, T newValue);
     int findData(T value);
-    T findMiddleElement();
+    std::vector<T> findMiddleElement();
     void updateAt(int position, T newValue);
 
     // TO-DO
@@ -44,6 +46,34 @@ LinkedList<T>::LinkedList() {
   head = nullptr;
   tail = nullptr;
   numElements = 0;
+}
+
+// Deeply copy
+template <class T>
+LinkedList<T>::LinkedList(const LinkedList<T> &other){
+  if (other.head == NULL) {
+        head = NULL;
+    }
+    else {
+        //copy all nodes of other to the caller object
+        //attach first node to the head of the caller object
+        NodeLinkedList<T>* newNode = new NodeLinkedList<T>();
+        newNode->data = other.head->data;
+        newNode->next = NULL;
+        head = newNode;
+
+        //Now deep-copy all the remaining nodes of the Passed linked list object
+        NodeLinkedList<T>* PassedItr = other.head->next;
+        NodeLinkedList<T>* CallerItr = head;
+        while (PassedItr != NULL)
+        {
+            CallerItr->next = new NodeLinkedList<T>();
+            CallerItr->next->data = PassedItr->data;
+            CallerItr->next->next = NULL;
+            CallerItr = CallerItr->next; //move to newly added node
+            PassedItr = PassedItr->next; //move one node further
+        }
+    }
 }
 
 // Complejidad O(n)
@@ -154,9 +184,7 @@ void LinkedList<T>::updateData(T value, T newValue) {
   
   else {
     NodeLinkedList<T> *p = head;
-    NodeLinkedList<T> *prev = nullptr;
     while (p != nullptr && p->data != value) {
-      prev = p;
       p = p->next;
     }
     // si no existe value en la lista
@@ -181,11 +209,9 @@ void LinkedList<T>::updateAt(int position, T newValue){
     }
   } else { // borrar cualquier otro elemento de la lista
     NodeLinkedList<T> *p = head;
-    NodeLinkedList<T> *prev = nullptr;
     int index = 0;
     // buscar el indice del elemento a borrar
     while (index != position) {
-      prev = p;
       p = p->next;
       index++;
     }
@@ -260,6 +286,8 @@ template <class T> T LinkedList<T>::getData(int position) {
 
 
 // -- Metodos FIND --
+
+// Complejidad O(n)
 template<class T>
 int LinkedList<T>::findData(T value){
   	int indice = 0;
@@ -271,9 +299,7 @@ int LinkedList<T>::findData(T value){
   
   else {
     NodeLinkedList<T> *p = head;
-    //NodeLinkedList<T> *prev = nullptr;
     while (p != nullptr && p->data != value) {
-      //prev = p;
       p = p->next;
       indice++;
     }
@@ -285,26 +311,32 @@ int LinkedList<T>::findData(T value){
   return indice;
 }
 
+// Complejidad O(n) porque utiliza la función getData()
 template<class T>
-T LinkedList<T>::findMiddleElement(){
+std::vector<T> LinkedList<T>::findMiddleElement(){
+  // Creamos vector por si la lista fuera par
+  std::vector<T> middle_elements;
+  
+  // Lista vacia
+  if (head == nullptr && tail == nullptr){
+    throw std::out_of_range("Indice fuera de rango");
+  }
+  
+  if(numElements % 2 != 0){
+    middle_elements.push_back(this->getData(numElements/2));
+  }
 
-  return 0;
+  // Si la lista es par
+  else {
+    middle_elements.push_back(this->getData(numElements/2 - 1));
+    middle_elements.push_back(this->getData(numElements/2));
+  }
+    
+  return middle_elements;
 }
 
 
 
 
 #endif // _LINKEDLIST_H_
-
-
-
-
-
-
-
-
-
-
-
-
 

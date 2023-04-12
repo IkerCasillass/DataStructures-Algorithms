@@ -104,16 +104,45 @@ int main() {
   }
   
   // ------ TAREA ------
-  std::cout << "\n---- Métodos de tarea ----\n" << std::endl;
+  std::cout << "\n------- Métodos de tarea -------\n" << std::endl;
   // updateData
 
+  std::cout << "updateData 13 to 14:" << std::endl;
+  miLista.printList();
+  miLista.updateData(13, 14);
+  miLista.printList();
+  std::cout << std::endl;
+  
+  
   // updateAt
 
+  std::cout << "updateDataAt 3 to 7:" << std::endl;
+  miLista.printList();
+  miLista.updateAt(3, 7);
+  miLista.printList();
+  std::cout << std::endl;
+
   // findData
-  std::cout << "findData 11" << std::endl;
+  std::cout << "findData 11:" << std::endl;
   std::cout << "Elemento encontrado en la posicion ["<<miLista.findData(11) <<"]" << std::endl;
 
   // findMiddleElement
+  std::cout << "\nfindMiddleElement():" <<std::endl;
 
+  try {
+    // Guardar variable de template
+    auto elementos = miLista.findMiddleElement();
+    std::cout << "Middle Element(s): " << elementos[0];
+    if(elementos.size() == 2){
+     std::cout << " " << elementos[1] << std::endl << "\n";
+    }
+  } catch (std::out_of_range &e) {
+    std::cout << "Error: " << e.what() << std::endl;
+  }
+
+  std::cout<<"Deeply copy: " <<std::endl;
+  LinkedList<int> nueva_lista(miLista);
+  nueva_lista.printList();
+  std::cout << "Lista copiada exitosamente\n"<<std::endl;
   return 0;
 }
