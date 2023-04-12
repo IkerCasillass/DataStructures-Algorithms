@@ -25,10 +25,10 @@ class LinkedList {
     void updateData(T value, T newValue);
     int findData(T value);
     T findMiddleElement();
+    void updateAt(int position, T newValue);
 
     // TO-DO
     
-    //void updateAt(int position, T newValue);
     //int findData(T value);
     // T findMiddleElement();
     // https://www.delftstack.com/howto/cpp/copy-constructor-of-linked-list-in-cpp/
@@ -168,6 +168,34 @@ void LinkedList<T>::updateData(T value, T newValue) {
 
 // Complejidad O(n)
 template <class T>
+void LinkedList<T>::updateAt(int position, T newValue){
+  if (position < 0 || position >= numElements) {
+    throw std::out_of_range("Indice fuera de rango");
+  } else if (position == 0) {
+    NodeLinkedList<T> *p = head;
+    // si la lista contiene un solo nodo
+    if (head != nullptr && head->next == nullptr) {
+      p->data = newValue;
+    } else {
+      p->data = newValue;
+    }
+  } else { // borrar cualquier otro elemento de la lista
+    NodeLinkedList<T> *p = head;
+    NodeLinkedList<T> *prev = nullptr;
+    int index = 0;
+    // buscar el indice del elemento a borrar
+    while (index != position) {
+      prev = p;
+      p = p->next;
+      index++;
+    }
+    // si debo borrar el ultimo elemento
+    p->data = newValue;
+  }
+}
+
+// Complejidad O(n)
+template <class T>
 bool LinkedList<T>::deleteAt(int position) {
   if (position < 0 || position >= numElements) {
     throw std::out_of_range("Indice fuera de rango");
@@ -243,9 +271,9 @@ int LinkedList<T>::findData(T value){
   
   else {
     NodeLinkedList<T> *p = head;
-    NodeLinkedList<T> *prev = nullptr;
+    //NodeLinkedList<T> *prev = nullptr;
     while (p != nullptr && p->data != value) {
-      prev = p;
+      //prev = p;
       p = p->next;
       indice++;
     }
@@ -253,12 +281,8 @@ int LinkedList<T>::findData(T value){
     if (p == nullptr){
       return -1;
     }
-    // remplazo el valor anterior por el nuevo
-    else{
-      return indice;
-    }
   }
-  return 0;
+  return indice;
 }
 
 template<class T>

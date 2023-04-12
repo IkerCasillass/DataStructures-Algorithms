@@ -4,7 +4,7 @@
  * Compilacion para debug:
  *    g++ -std=c++17 -Wall -g -o main *.cpp
  * Ejecucion con valgrind:
- *    nix-env -iA nixpkgs.valgrind 
+ *    nix-env -iA nixpkgs.valgrind
  *    valgrind --leak-check=full ./main
  *
  * Compilacion para ejecucion:
@@ -103,5 +103,17 @@ int main() {
     std::cout << "Error desconocido, no se modifico la lista" << std::endl;
   }
   
+  // ------ TAREA ------
+  std::cout << "\n---- Métodos de tarea ----\n" << std::endl;
+  // updateData
+
+  // updateAt
+
+  // findData
+  std::cout << "findData 11" << std::endl;
+  std::cout << "Elemento encontrado en la posicion ["<<miLista.findData(11) <<"]" << std::endl;
+
+  // findMiddleElement
+
   return 0;
 }
