@@ -11,6 +11,11 @@
  *    g++ -std=c++17 -Wall -O3 -o main *.cpp
  * Ejecucion:
  *    ./main
+
+ 
+ * Equipo 2:
+* Iker Casillas  | A01641047
+* César Simental | A01641385
  **/
 
 #include "LinkedList.h"

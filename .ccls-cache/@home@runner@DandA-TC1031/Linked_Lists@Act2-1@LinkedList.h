@@ -28,14 +28,6 @@ class LinkedList {
     int findData(T value);
     std::vector<T> findMiddleElement();
     void updateAt(int position, T newValue);
-
-    // TO-DO
-    
-    //int findData(T value);
-    // T findMiddleElement();
-    // https://www.delftstack.com/howto/cpp/copy-constructor-of-linked-list-in-cpp/
-    //LinkedList(const LinkedList<T> &other);   // copy constructor
-    
   
 };
 
