@@ -47,15 +47,15 @@ int main() {
   miLista.deleteData(12);
   std::cout << "numElements: " << miLista.getNumElements() << std::endl;
   miLista.printList();
-  std::cout << "Delete 5: " << std::endl;
-  miLista.deleteData(5);
-  std::cout << "numElements: " << miLista.getNumElements() << std::endl;
-  miLista.printList();
-  std::cout << "Delete 14: " << std::endl;
-  miLista.deleteData(14);
-  std::cout << "numElements: " << miLista.getNumElements() << std::endl;
-  std::cout << "printList: " << std::endl;
-  miLista.printList();
+  // std::cout << "Delete 5: " << std::endl;
+  // miLista.deleteData(5);
+  // std::cout << "numElements: " << miLista.getNumElements() << std::endl;
+  // miLista.printList();
+  // std::cout << "Delete 14: " << std::endl;
+  // miLista.deleteData(14);
+  // std::cout << "numElements: " << miLista.getNumElements() << std::endl;
+  // std::cout << "printList: " << std::endl;
+  // miLista.printList();
   std::cout << "Delete 114: " << std::endl;
   miLista.deleteData(114);
   std::cout << "numElements: " << miLista.getNumElements() << std::endl;
@@ -87,24 +87,25 @@ int main() {
   std::cout << "numElements: " << miLista.getNumElements() << std::endl;
   miLista.printList();
   std::cout << std::endl;
-/*
-  // getData
-  try {
-    std::cout << "getData(3): " << miLista.getData(3) << std::endl;
-  } catch (std::out_of_range &e) {
-    std::cout << "Error: " << e.what() << std::endl
-              << "No se modifico la lista" << std::endl;
-  } catch (...) {
-    std::cout << "Error desconocido, no se modifico la lista" << std::endl;
-  }
-  try {
-    std::cout << "getData(13): " << miLista.getData(13) << std::endl;
-  } catch (std::out_of_range &e) {
-    std::cout << "Error: " << e.what() << std::endl
-              << "No se modifico la lista" << std::endl;
-  } catch (...) {
-    std::cout << "Error desconocido, no se modifico la lista" << std::endl;
-  }
- */ 
+
+
+
+
+  // ------ TAREA ------
+  std::cout << "\n------- Métodos de tarea 1 -------\n" << std::endl;
+  // findData
+  std::cout << "findData 11:" << std::endl;
+  std::cout << "Elemento encontrado en la posicion ["<<miLista.findData(11) <<"]" << std::endl;
+
+
+  std::cout << "\n------- Métodos de tarea 2 -------\n" << std::endl;
+  std::cout << "Invirtiendo lista:" <<std::endl;
+  miLista.invert();
+  miLista.printList();
+
+  std::cout << "\nSublista invertida, indices 2:6" <<std::endl;
+  
+  auto sublista = miLista.getReversedSublist(2, 6);
+  sublista.printList();
   return 0;
 }

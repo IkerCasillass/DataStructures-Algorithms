@@ -237,36 +237,109 @@ DLinkedList<T>::getData(int position) {
   }
 }
 
+
 // -------------------- TAREA ------------------
 template <class T> 
 void DLinkedList<T>::updateData(T value, T newValue){
+   // La lista esta vacia
+  if (head == nullptr && tail == nullptr){}
   
+  else {
+    DLLNode<T> *p = head;
+    while (p != nullptr && p->data != value) {
+      p = p->next;
+    }
+    // si no existe value en la lista
+    if (p == nullptr){}
+    // remplazo el valor anterior por el nuevo
+    else p->data = newValue;
+  }
 }
 
 template <class T> 
 void DLinkedList<T>::updateAt(int position, T newValue){
   
 }
+
 template <class T> 
 int DLinkedList<T>::findData(T value){
+  int indice = 0;
   
+  // La lista esta vacia
+  if (head == nullptr && tail == nullptr){
+    return -1;
+  }
+  
+  else {
+    DLLNode<T> *p = head;
+    while (p != nullptr && p->data != value) {
+      p = p->next;
+      indice++;
+    }
+    // si no existe value en la lista
+    if (p == nullptr){
+      return -1;
+    }
+  }
+  return indice;
 }
+
 template <class T> 
 void DLinkedList<T>::invert(){
+  if(head != nullptr && tail != nullptr){ // Si la lista no está vacía
+    
+    DLLNode<T> *current = head;
+    DLLNode<T> *temp = nullptr; // Auxiliar
 
+    while (current != nullptr) { // Mientras no se haya recorrido la lista completa
+      // Invertimos punteros
+      temp = current->prev;
+      current->prev = current->next;
+      current->next = temp;
+      // Avanzamos posicion
+      current = current->prev; 
+  }
+  // Asignamos nuevo head
+  head = temp->prev; 
+
+  }
+  
 }
+
 template <class T> 
 void DLinkedList<T>::sort(){
  
 }
 
 template <class T>  
-DLinkedList<T> getReversedSublist(int ini, int fin){
+DLinkedList<T> DLinkedList<T>::getReversedSublist(int ini, int fin){
+  int ixini = 0; // inicio
+  int ixfin = 0; // fin
+
+  DLinkedList<T> sublista;
   
+  // Si la lista no está vacía
+  if (head != nullptr && tail != nullptr){
+    DLLNode<T> *p = head;
+    while (p != nullptr && ixini != ini) {
+      p = p->next;
+      ixini++;
+    }
+
+    ixfin = ixini; /* Igualamos el final al inicio para iniciar nuestras iteraciones desde ahí */
+
+    // Mientras no hayamos llegado al indice final
+    while(p!= nullptr && ixfin <= fin) { 
+      // addFirst para que la lista quede invertida
+      sublista.addFirst(p->data); 
+      // Avanzamos
+      p = p->next;
+      ixfin++;
+    }
+  }
+
+  return sublista;
 }
-
-
-
 
 
 #endif // _LINKEDLIST_H_
