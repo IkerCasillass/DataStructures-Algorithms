@@ -1,13 +1,14 @@
-
 #include "Registro.h"
+#include "AlgorithmSort.h"
+#include <sstream>
 
 // Constructor default
 Registro::Registro() {
   mes = "";
   dia = "";
-  horas = "";
-  minutos = "";
-  segundos = "";
+  horas = "0";
+  minutos = "0";
+  segundos = "0";
   ip = "";
   puerto = "";
   falla = "";
@@ -87,6 +88,40 @@ int Registro::binarySearch(std::vector<Registro> &vectorSorted, int key, int &co
   }
   return -1;
 }
+
+//aaaaaaa
+
+void Registro::cambiarFormato(std::string cadena, std::string &hora, std::string &minuto, std::string &segundo){
+  
+  //Separando horas/minutos/segundos
+  std::stringstream input_stringstream(cadena);   
+
+  getline(input_stringstream, hora, ':');
+  getline(input_stringstream, minuto, ':');
+  getline(input_stringstream, segundo, ':');
+
+  this->setHoras(hora);
+  this->setMinutos(minuto);
+  this->setSegundos(segundo);
+
+  // Almacenar los campos en el struct tm
+  dateStruct.tm_hour = std::stoi(horas);
+  dateStruct.tm_min = std::stoi(minutos);
+  dateStruct.tm_sec = std::stoi(segundos);
+  dateStruct.tm_mday = std::stoi(dia);
+  // Resolver problemas de compatibilidad Windows
+  dateStruct.tm_isdst = 0;
+  for (int i = 0; i < (int)meses.size(); i++) {
+    if (meses[i] == mes)
+      dateStruct.tm_mon = i;
+  }
+  dateStruct.tm_year = 2023 - 1900; // Asumimos el año 2023
+  // Obtener el Linux timestamp
+  // https://cplusplus.com/reference/ctime/mktime/
+  fechaHora = mktime(&dateStruct);
+}
+
+
 
 
 // Sobrecarga de operadores de comparacion

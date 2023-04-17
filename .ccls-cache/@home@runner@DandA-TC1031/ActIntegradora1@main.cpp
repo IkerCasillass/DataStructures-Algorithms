@@ -14,7 +14,7 @@
 * Equipo 2:
 * Iker Casillas  | A01641047
 * César Simental | A01641385
-**/
+* */
 #include <iostream>
 #include <chrono>
 #include <fstream> // ayuda en lectura y escritura de archivo
@@ -22,6 +22,8 @@
 #include <stdlib.h> //exit
 #include "Registro.h"
 #include "AlgorithmSort.h"
+#include "AlgorithmSort.cpp" // Incluir cpp arregla linking error
+#include "Bitacora.h"
 
 
 
@@ -187,7 +189,28 @@ void buscar(std::vector<Registro> vectorSorted){
 
 int main() {
 
-  unsigned int comparaciones, swaps;
+    int size = 0;
+    std::ifstream bitacora("bitacora.txt"); //archivo a leer
+    std::vector<Registro> listaOrdenada;
+  
+    Bitacora bitacora1(bitacora);
+    std::cout << "Bitacora creada\n" <<std::endl;
+    std::cout << bitacora1.getTexto()[0].getAll() <<std::endl;
+
+    size = bitacora1.getTexto().size();
+    listaOrdenada = bitacora1.ordenar(bitacora1.getTexto(), size);
+
+    bitacora1.buscar(listaOrdenada);
+    std::cout<<"\n";
+
+    // std::cout<<"10 primeros registros: " <<std::endl;
+    // for(int i=0; i < 10; i++){
+    //   std::cout<< listaOrdenada[i].getAll() <<std::endl;
+    // }
+    
+  
+    
+ /* unsigned int comparaciones, swaps;
   int size;
   std::vector<Registro> listaRegistros, listaOrdenada;
 
@@ -209,6 +232,7 @@ int main() {
     file.close();
   
   buscar(listaOrdenada);
+  */
   
   return 0;
   

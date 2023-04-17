@@ -11,6 +11,12 @@
  *    g++ -std=c++17 -Wall -O3 -o main *.cpp
  * Ejecucion:
  *    ./main
+ *
+ * Equipo 2:
+ * Iker Casillas  | A01641047
+ * César Simental | A01641385
+ * Arturo Sánchez | A01275427 
+ * 
  **/
 
 #include "DLinkedList.h"
@@ -18,72 +24,18 @@
 
 int main() {
   DLinkedList<int> miLista;
-  std::cout << "numElements: " << miLista.getNumElements() << std::endl;
-  // addFirst
-  std::cout << "Agregando 5 elementos al frente..." << std::endl;
+  
   for (int i = 1; i < 6; i++) {
     miLista.addFirst(i);
   }
-  std::cout << "numElements: " << miLista.getNumElements() << std::endl;
-  std::cout << "printList: " << std::endl;
-  miLista.printList();
-  std::cout << std::endl;
-  std::cout << "printListReversed: " << std::endl;
-  miLista.printListReversed();
-  std::cout << std::endl;
-
-  // addLast
-  std::cout << "Agregando 5 elementos al final..." << std::endl;
   for (int i = 10; i < 15; i++) {
     miLista.addLast(i);
   }
-  std::cout << "numElements: " << miLista.getNumElements() << std::endl;
-  std::cout << "printList: " << std::endl;
-  miLista.printList();
-  std::cout << std::endl;
-
-  // deleteData
-  std::cout << "Delete 12: " << std::endl;
   miLista.deleteData(12);
-  std::cout << "numElements: " << miLista.getNumElements() << std::endl;
-  miLista.printList();
-  // std::cout << "Delete 5: " << std::endl;
-  // miLista.deleteData(5);
-  // std::cout << "numElements: " << miLista.getNumElements() << std::endl;
-  // miLista.printList();
-  // std::cout << "Delete 14: " << std::endl;
-  // miLista.deleteData(14);
-  // std::cout << "numElements: " << miLista.getNumElements() << std::endl;
-  // std::cout << "printList: " << std::endl;
-  // miLista.printList();
-  std::cout << "Delete 114: " << std::endl;
   miLista.deleteData(114);
-  std::cout << "numElements: " << miLista.getNumElements() << std::endl;
-  std::cout << "printList: " << std::endl;
-  miLista.printList();
-  std::cout << std::endl;
+  miLista.deleteAt(2);
 
-  // DeleteAt puede lanzar una excepcion
-  std::cout << "DeleteAt 2: " << std::endl;
-  try {
-    miLista.deleteAt(2);
-  } catch (std::out_of_range &e) {
-    std::cout << "Error: " << e.what() << std::endl
-              << "No se modifico la lista" << std::endl;
-  } catch (...) {
-    std::cout << "Error desconocido, no se modifico la lista" << std::endl;
-  }
-  std::cout << "numElements: " << miLista.getNumElements() << std::endl;
-  miLista.printList();
-  std::cout << "DeleteAt 19: " << std::endl;
-  try {
-    miLista.deleteAt(19);
-  } catch (std::out_of_range &e) {
-    std::cout << "Error: " << e.what() << std::endl
-              << "No se modifico la lista" << std::endl;
-  } catch (...) {
-    std::cout << "Error desconocido, no se modifico la lista" << std::endl;
-  }
+  std::cout << "Mostrando lista:\n" <<std::endl;
   std::cout << "numElements: " << miLista.getNumElements() << std::endl;
   miLista.printList();
   std::cout << std::endl;
@@ -97,8 +49,15 @@ int main() {
   std::cout << "findData 11:" << std::endl;
   std::cout << "Elemento encontrado en la posicion ["<<miLista.findData(11) <<"]" << std::endl;
 
-
   std::cout << "\n------- Métodos de tarea 2 -------\n" << std::endl;
+  // updateAt
+  std::cout << "updateAt :" << std::endl;
+  std::cout << "Elemento actualizado "<<std::endl;
+  miLista.updateAt(1, 5);
+  miLista.printList();
+
+
+  std::cout << "\n------- Métodos de tarea 3 -------\n" << std::endl;
   std::cout << "Invirtiendo lista:" <<std::endl;
   miLista.invert();
   miLista.printList();
@@ -107,5 +66,12 @@ int main() {
   
   auto sublista = miLista.getReversedSublist(2, 6);
   sublista.printList();
+
+  std::cout << "\n------- Métodos de tarea 4 -------\n" << std::endl;
+  std::cout << "Quick sort:" <<std::endl;
+  miLista.printList();
+  miLista.sort();
+  miLista.printList();
+  
   return 0;
 }

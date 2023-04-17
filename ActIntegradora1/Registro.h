@@ -47,6 +47,7 @@ class Registro {
     //Otros
     int binarySearch(std::vector<Registro> &vectorSorted, int key, int &compara);
 
+    void cambiarFormato(std::string cadena, std::string &hora, std::string &minuto, std::string &segundo);
 
 
 
