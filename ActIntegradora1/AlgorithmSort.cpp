@@ -86,11 +86,3 @@ int AlgorithmSort<T>::binarySearch(std::vector<Registro> &vectorSorted, int key,
   }
   return -1;
 }
-
-
-// No need to call this TemporaryFunction() function,
-// it's just to avoid link error.
-// void TemporaryFunction ()
-// {
-//     AlgorithmSort<int> TempObj;
-// }

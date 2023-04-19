@@ -1,7 +1,5 @@
 #include <iostream>
-#include <chrono>
 #include <fstream> // ayuda en lectura y escritura de archivo
-#include <sstream> // facilita separar el string
 #include <stdlib.h> //exit
 #include "Registro.h"
 
