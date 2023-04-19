@@ -24,7 +24,7 @@
 #include <sstream> // facilita separar el string
 #include <stdlib.h> //exit
 #include "Registro.h"
-#include "AlgorithmSort.h"
+#include "AlgorithmSort.h" // Header file con declaracion de algoritmos utilizados
 #include "AlgorithmSort.cpp" // Incluir cpp arregla linking error
 #include "Bitacora.h"
 
