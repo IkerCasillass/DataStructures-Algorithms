@@ -18,6 +18,9 @@ class DLinkedList {
     DLLNode<T>* getHead();
     DLLNode<T>* getTail();
     int getNumElements();
+    void setHead(DLLNode<T> *_head);
+    void setTail(DLLNode<T> *_Tail);
+    void setNumElements(int _numElements);
     void printList();
     void printListReversed();
     void addFirst(T value);
@@ -33,14 +36,6 @@ class DLinkedList {
     void sort();
     DLLNode<T> * partition(DLLNode<T> *low, DLLNode<T> *high);
     DLinkedList<T> getReversedSublist(int ini, int fin);
-    
-    // TO-DO
-    //void updateData(T value, T newValue);
-    //void updateAt(int position, T newValue);
-    //int findData(T value); 
-    //void invert();
-    //void sort();
-    //DLinkedList<T> getReversedSublist(int ini, int fin);
   
 };
 
@@ -68,6 +63,23 @@ DLinkedList<T>::~DLinkedList() {
   tail = nullptr;
   numElements = 0;
 }
+
+template <class T>
+void DLinkedList<T>::setHead(DLLNode<T> *_head){
+  head = _head;
+}
+
+template<class T>
+void DLinkedList<T>::setTail(DLLNode<T> *_tail) {
+  tail = _tail;
+}
+
+template <class T>
+
+void DLinkedList<T>::setNumElements(int _numElements) {
+  numElements = _numElements;
+}
+
 
 // Complejidad O(1)
 template <class T> 

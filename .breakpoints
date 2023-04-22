@@ -1,5 +1,13 @@
 {
   "files": {
+    "ActIntegradora2/DLinkedList.h": [
+      {
+        "id": "0f6c39d2-ce23-4c04-8b72-23df0ec9e03d",
+        "line": 57,
+        "version": 494,
+        "index": 1432
+      }
+    ],
     "SortingAlgorithms/SortAlgo_pt2/main.cpp": [
       {
         "id": "c2cfd03d-c6b7-4cdb-8662-9b99cd9c4128",

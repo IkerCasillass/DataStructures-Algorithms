@@ -2,15 +2,18 @@
 #include "Registro.h"
 #include "AlgorithmSort.h"
 #include "AlgorithmSort.cpp"
+#include "DLinkedList.h"
 #include <sstream>
 #include <chrono>
 
 
 //Constructor default
 Bitacora::Bitacora() {
-  texto = {};
+  DLinkedList<Registro> Default;
+  texto = Default;
 }
 
+// Constructor archivo
 Bitacora::Bitacora(std::ifstream &archivo) {
 
   std::string linea;
@@ -53,7 +56,7 @@ Bitacora::Bitacora(std::ifstream &archivo) {
 
       
       //Añadiendo los registros al vector
-      texto.push_back(registrotemp);
+      texto.addLast(registrotemp);
 
       //Borrar caracteres del string para nueva cadena de error
       error1 = "";
@@ -66,11 +69,11 @@ Bitacora::Bitacora(std::ifstream &archivo) {
   }
 }
 
-void Bitacora::setTexto(std::vector<Registro> _texto){
+void Bitacora::setTexto(DLinkedList<Registro> _texto){
   texto = _texto;
 }
 
-std::vector<Registro> Bitacora::getTexto() {
+DLinkedList<Registro> Bitacora::getTexto() {
   return texto;
 }
 
