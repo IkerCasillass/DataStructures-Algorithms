@@ -24,35 +24,26 @@
 #include <sstream> // facilita separar el string
 #include <stdlib.h> //exit
 #include "Registro.h"
-#include "AlgorithmSort.h" // Header file con declaracion de algoritmos utilizados
-#include "AlgorithmSort.cpp" // Incluir cpp arregla linking error
-#include "Bitacora.h"
 #include "DLinkedList.h"
 
 int main() {
   
-    DLinkedList<Registro> text; // Linked List que almacena registros
+  std::ifstream bitacora("bitacora.txt"); //archivo a leer
+    if(bitacora){
   
-    Registro Registro1("Sep", "29", "00:22::36", "0", "0", "960.96.3.29", "5268", "Error");
-    Registro Registro2("Sep", "28", "00:22::36", "0", "0", "960.96.3.29", "5268", "Error");
+      DLinkedList<Registro> Texto(bitacora); //Linked list que almacena los registros del archivo de texto
+      DLinkedList<Registro> CopiaTexto(Texto);
+      std::cout << "\nBitacora creada\n" <<std::endl;
+      
+      Texto.sort(CopiaTexto); // Aplicando quicksort
 
-    std::cout << text.getHead() << "\n" << std::endl;
-
-    text.addFirst(Registro1);
-    text.addFirst(Registro2);
-
-    std::cout << "Registros agregados en:" << std::endl;
-
-    std::cout << text.getHead() << std::endl;
-    std::cout << text.getTail() << std::endl;
-
-    Bitacora Registros; // Bitacora de Registros
-
-    std::cout << "\nBitacora creada\n" << std::endl;
-
-    Registros.setTexto(text);
-
-    
+      Texto.search();
+      std::cout<<"\n";
+      
+    }
+    else {
+      std::cout<< "Error al leer el archivo" <<std::endl;
+    }    
 
   return 0;
 

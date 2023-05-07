@@ -6,7 +6,6 @@
 // transformar una fecha a numero decimal
 #include <ctime>  
 #include <iostream>
-#include "AlgorithmSort.h"
 
 //Representar un evento (registro) dentro de la bitacora
 class Registro {

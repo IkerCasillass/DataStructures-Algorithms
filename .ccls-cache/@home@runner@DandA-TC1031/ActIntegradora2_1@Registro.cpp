@@ -1,5 +1,4 @@
 #include "Registro.h"
-#include "AlgorithmSort.h"
 #include <sstream>
 
 // Constructor default
