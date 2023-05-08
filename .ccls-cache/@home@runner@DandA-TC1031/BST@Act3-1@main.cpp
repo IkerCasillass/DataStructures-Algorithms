@@ -11,6 +11,11 @@
  *    g++ -std=c++17 -O3 -o main *.cpp
  * Ejecucion:
  *    ./main
+
+ Equipo 2:
+* Iker Casillas  | A01641047
+* César Simental | A01641385
+* Arturo Sánchez | A01275427
  **/
 
 #include "BST.h"
@@ -68,5 +73,29 @@ int main() {
   myBST.print();
   std::cout << std::endl;
 */
+
+  // void visit
+  std::cout<<" \nVisit " << std::endl;
+  myBST.visit(1);
+  myBST.visit(2);
+  myBST.visit(3);
+  myBST.visit(4);
+  myBST.print();
+  std::cout<<std::endl;
+
+  // Height
+  std::cout<<" \nHeight " << std::endl;
+  BST<int> myTree;
+  int treeHeight = myTree.height();
+  std::cout << "Altura del arbol: " << treeHeight << std::endl;
+
+  //Ancestors
+  std::cout<<" \nAncestors " << std::endl;
+  myBST.ancestors(115);
+
+  // whatLevelAml
+  std::cout<<" \nWhat Level Aml: " << myBST.whatLevelAml(30) << std::endl;
+  myBST.print();
+  
   return 0;
 }
