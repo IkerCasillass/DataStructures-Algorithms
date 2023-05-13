@@ -28,6 +28,7 @@ public:
   bool isEmpty();
   int getMaxCapacity();
   int getCurrentSize();
+  std::vector<T> getData();
 
   void printHeap();
   void push(T key);
@@ -36,6 +37,9 @@ public:
   // TO-DO
   void pop();
 };
+
+
+// Constructores
 
 template <class T> MaxHeap<T>::MaxHeap(int maxCapacity) {
   maxSize = maxCapacity;
@@ -105,17 +109,27 @@ MaxHeap<T>::MaxHeap(std::ifstream &archivo, int maxCapacity) {
   }
 }
 
+// Destructor
 template <class T> MaxHeap<T>::~MaxHeap() {
   maxSize = 0;
   currentSize = 0;
   data.clear();
 }
 
-template <class T> bool MaxHeap<T>::isEmpty() { return (currentSize <= 0); }
+
+// Getters
 
 template <class T> int MaxHeap<T>::getMaxCapacity() { return maxSize; }
 
 template <class T> int MaxHeap<T>::getCurrentSize() { return currentSize; }
+
+template <class T> std::vector<T> MaxHeap<T>::getData(){ return data; }
+
+
+// Metodos
+
+template <class T> bool MaxHeap<T>::isEmpty() { return (currentSize <= 0); }
+
 
 template <class T> void MaxHeap<T>::printHeap() {
   std::cout << "Contenido del maxheap:" << std::endl;

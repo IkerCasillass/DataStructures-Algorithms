@@ -43,6 +43,10 @@ int main() {
   std::ifstream bitacora("bitacoraHeap.txt"); //archivo a leer
     if(bitacora){
       MaxHeap<Registro> Inicial(bitacora, maxCapacity);
+
+      for(int i = 0; i < 10; i++){
+        std::cout<< Inicial.getData()[i].getAll() << std::endl;
+      }
     }
     else {
       std::cout<< "Error al leer el archivo" <<std::endl;
