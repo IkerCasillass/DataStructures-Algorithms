@@ -1,9 +1,12 @@
 #ifndef _MAXHEAP_H_
 #define _MAXHEAP_H_
 
+#include "Registro.h"
 #include <iostream>
 #include <stdexcept>
 #include <vector>
+#include <sstream>
+#include <fstream>
 
 template <class T> class MaxHeap {
 private:
@@ -20,6 +23,7 @@ private:
 
 public:
   MaxHeap(int maxCapacity);
+  MaxHeap(std::ifstream &archivo, int maxCapacity); // Constructor con archivo
   ~MaxHeap();
   bool isEmpty();
   int getMaxCapacity();
@@ -33,38 +37,72 @@ public:
   void pop();
 };
 
-// Complejidad O(log n)
-// Consultado: https://www.geeksforgeeks.org/heap-sort/
-template <class T> void MaxHeap<T>::pop() {
-  // heap vacio
-  if (isEmpty()) {
-    throw std::out_of_range("El heap esta vacio");
-  }
-  // Cambia primer elemento con ultimo
-  data[0] = data[currentSize - 1];
-  // size -1
-  currentSize--;
-  int k = 0;
-  // Mientras left child tenga un indice valido
-  while (left(k) < currentSize) {
-    int j = left(k);
-    if (right(k) < currentSize && data[right(k)] > data[left(k)]) {
-      j = right(k);
-    }
-
-    if (data[k] >= data[j]) {
-      // Max heap ya esta acomodado
-      break;
-    }
-    std::swap(data[k], data[j]);
-    k = j;
-  }
-}
-
 template <class T> MaxHeap<T>::MaxHeap(int maxCapacity) {
   maxSize = maxCapacity;
   currentSize = 0;
   data.resize(maxSize);
+}
+
+template <class T>
+MaxHeap<T>::MaxHeap(std::ifstream &archivo, int maxCapacity) {
+  // Constructor con archivo
+  maxSize = maxCapacity;
+  currentSize = 0;
+  data.resize(maxSize);
+
+  // Variables para crear los registros
+  std::string linea;
+  std::string mes;
+  std::string dia;
+  std::string horas;
+  std::string minutos;
+  std::string segundos;
+  std::string ip_puerto;
+  std::string ip;
+  std::string puerto;
+  std::string error1;
+  std::string error2;
+  std::string error3;
+  std::string error4;
+  std::string error5;
+  std::string error6;
+
+  // Leer archivo
+  if (archivo.is_open()) {
+
+    // Obtener línea de archivo, y almacenar contenido en "linea"
+    while (getline(archivo, linea)) {
+
+      std::istringstream ss(linea);
+      // Obtenemos los datos que estan separados por espacios
+      ss >> mes >> dia >> horas >> ip_puerto >> error1 >> error2 >> error3 >> error4 >>
+          error5 >> error6;
+
+      std::string error;
+      // Juntamos las palabras del error en una sola cadena
+
+      error = error1 + " " + error2 + " " + error3 + " " + error4 + " " +
+              error5 + " " + error6;
+
+      // Registro temporal
+      Registro registrotemp(mes, dia, horas, "0", "0", ip, "0", error);
+
+      // Cambiar formato y setear hora
+      registrotemp.cambiarFormato(horas, horas, minutos, segundos, ip_puerto, ip, puerto);
+
+      // Añadir registros a Binary Heap 
+      
+      this->push(registrotemp);
+
+      // Borrar caracteres del string para nueva cadena de error
+      error1 = "";
+      error2 = "";
+      error3 = "";
+      error4 = "";
+      error5 = "";
+      error6 = "";
+    }
+  }
 }
 
 template <class T> MaxHeap<T>::~MaxHeap() {
@@ -114,6 +152,34 @@ template <class T> T MaxHeap<T>::getTop() {
     return {};
   }
   return data[0];
+}
+
+// Complejidad O(log n)
+// Consultado: https://www.geeksforgeeks.org/heap-sort/
+template <class T> void MaxHeap<T>::pop() {
+  // heap vacio
+  if (isEmpty()) {
+    throw std::out_of_range("El heap esta vacio");
+  }
+  // Cambia primer elemento con ultimo
+  data[0] = data[currentSize - 1];
+  // size -1
+  currentSize--;
+  int k = 0;
+  // Mientras left child tenga un indice valido
+  while (left(k) < currentSize) {
+    int j = left(k);
+    if (right(k) < currentSize && data[right(k)] > data[left(k)]) {
+      j = right(k);
+    }
+
+    if (data[k] >= data[j]) {
+      // Max heap ya esta acomodado
+      break;
+    }
+    std::swap(data[k], data[j]);
+    k = j;
+  }
 }
 
 #endif // _MAXHEAP_H_

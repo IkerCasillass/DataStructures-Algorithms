@@ -1,42 +1,12 @@
-#ifndef _MAXHEAP_H_
-#define _MAXHEAP_H_
-
-#include "Registro.h"
 #include <iostream>
 #include <stdexcept>
 #include <vector>
 #include <sstream>
 #include <fstream>
-
-template <class T> class MaxHeap {
-private:
-  // contiene los elementos del heap
-  std::vector<T> data;
-  // capacidad maxima del heap
-  int maxSize;
-  // tamano actual del heap
-  int currentSize;
-
-  int parent(int k);
-  int left(int k);
-  int right(int k);
-
-public:
-  MaxHeap(int maxCapacity);
-  MaxHeap(std::ifstream &archivo, int maxCapacity); // Constructor con archivo
-  ~MaxHeap();
-  bool isEmpty();
-  int getMaxCapacity();
-  int getCurrentSize();
-
-  void printHeap();
-  void push(T key);
-  T getTop();
-
-  // TO-DO
-  void pop();
-};
-
+#include "MaxHeap.h"
+#include "Registro"
+// Constructor
+  
 template <class T> MaxHeap<T>::MaxHeap(int maxCapacity) {
   maxSize = maxCapacity;
   currentSize = 0;
@@ -47,8 +17,6 @@ template <class T>
 MaxHeap<T>::MaxHeap(std::ifstream &archivo, int maxCapacity) {
   // Constructor con archivo
   maxSize = maxCapacity;
-  currentSize = 0;
-  data.resize(maxSize);
 
   // Variables para crear los registros
   std::string linea;
@@ -90,9 +58,11 @@ MaxHeap<T>::MaxHeap(std::ifstream &archivo, int maxCapacity) {
       // Cambiar formato y setear hora
       registrotemp.cambiarFormato(horas, horas, minutos, segundos, ip_puerto, ip, puerto);
 
-      // Añadir registros a Binary Heap 
-      
+      // Añadir registros a Binary Heap ------------------------------------------
       this->push(registrotemp);
+
+
+      // ---------------------------------------------------------------------------
 
       // Borrar caracteres del string para nueva cadena de error
       error1 = "";
@@ -181,5 +151,3 @@ template <class T> void MaxHeap<T>::pop() {
     k = j;
   }
 }
-
-#endif // _MAXHEAP_H_

@@ -89,7 +89,6 @@ int Registro::binarySearch(std::vector<Registro> &vectorSorted, int key, int &co
   return -1;
 }
 
-//aaaaaaa
 
 void Registro::cambiarFormato(std::string cadena, std::string &hora, std::string &minuto, std::string &segundo){
   
