@@ -1,4 +1,4 @@
-#include "Registro.h"
+ #include "Registro.h"
 #include <math.h>
 #include <sstream>
 
@@ -195,26 +195,26 @@ void Registro::cambiarFormato(std::string fechahora, std::string &hora, std::str
 
 // Comparacion de Registro por direccion ip
 bool Registro::operator==(const Registro &other) {
-  return this->fechaHora == other.ip_value;
+  return this->ip_value == other.ip_value;
 }
 
 bool Registro::operator!=(const Registro &other) {
-  return this->fechaHora != other.ip_value;
+  return this->ip_value != other.ip_value;
 }
 
 bool Registro::operator>=(const Registro &other) {
-  return this->fechaHora >= other.ip_value;
+  return this->ip_value >= other.ip_value;
 }
 
 bool Registro::operator<=(const Registro &other) {
-  return this->fechaHora <= other.ip_value;
+  return this->ip_value <= other.ip_value;
 }
 
 bool Registro::operator>(const Registro &other) {
-  return this->fechaHora > other.ip_value;
+  return this->ip_value > other.ip_value;
 }
 
 bool Registro::operator<(const Registro &other) {
-  return this->fechaHora < other.ip_value;
+  return this->ip_value < other.ip_value;
 }
 

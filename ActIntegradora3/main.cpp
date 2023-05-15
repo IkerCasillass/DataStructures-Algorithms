@@ -29,24 +29,55 @@
 #include <stdlib.h> //exit
 #include "Registro.h"
 #include "MaxHeap.h"
+#include "IP.h"
 
 
 int main() { 
   std::string hora, minuto, segundo, ip, puerto;
-  int maxCapacity = 17000;
-  //Registro Reg1("Oct", "09", "10:32:24", "0", "0", "17.11.195.231:6631", "", "Failed password for illegal user guest");
+  int maxCapacity = 16810;
+  MaxHeap<IP> HeapIps(maxCapacity); // Heap con informacion de ip
+  std::vector<Registro> sortedIP;
 
-  //Reg1.setIp_value(1032123123);
-  //Reg1.cambiarFormato(Reg1.getHoras(), hora, minuto, segundo, Reg1.getIp(), ip, puerto);
-
-
+  
   std::ifstream bitacora("bitacoraHeap.txt"); //archivo a leer
     if(bitacora){
-      MaxHeap<Registro> Inicial(bitacora, maxCapacity);
-
-      for(int i = 0; i < 10; i++){
-        std::cout<< Inicial.getData()[i].getAll() << std::endl;
+      MaxHeap<Registro> Inicial(bitacora, maxCapacity); // Creamos MaxHeap<Registro>
+      
+      
+      // Guardar los elementos ordenados en un vector usando heapsort
+      for(int i = 0; Inicial.getCurrentSize(); i++){ 
+        sortedIP.push_back(Inicial.getTop());
+        // Eliminamos del Heap                                            
+        Inicial.pop();
       }
+
+      // Ciclo recorre elementos del vector y almacena datos en Heap<IP>
+      int cont = 1;
+      int j = 1;
+      
+      while(j < (int)sortedIP.size()){
+        if (sortedIP[j] == sortedIP[j-1]) {
+          cont++;
+        }
+        else {
+          //--------Insertar en Heap<IP> ---------
+          
+          // Crear Ip temporal con direccion y # acceso - valor ip
+          IP IPtemp(sortedIP[j].getIp(), cont, sortedIP[j].getIp_value());
+          // Insertar
+          HeapIps.push(IPtemp);
+          // Resetear contador
+          cont = 1;
+        }
+        j++;
+      }
+
+
+      std::cout<< "Numero de IPS: " << HeapIps.getCurrentSize() << std::endl;
+      for(int i = 0; i < 50; i++){
+        std::cout<< HeapIps.getData()[i].getIp_value() << ":" << HeapIps.getData()[i].getAccess_num() << std::endl;
+      }
+
     }
     else {
       std::cout<< "Error al leer el archivo" <<std::endl;

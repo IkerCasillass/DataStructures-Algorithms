@@ -29,24 +29,34 @@
 #include <stdlib.h> //exit
 #include "Registro.h"
 #include "MaxHeap.h"
+#include "IP.h"
 
 
 int main() { 
   std::string hora, minuto, segundo, ip, puerto;
   int maxCapacity = 17000;
-  //Registro Reg1("Oct", "09", "10:32:24", "0", "0", "17.11.195.231:6631", "", "Failed password for illegal user guest");
-
-  //Reg1.setIp_value(1032123123);
-  //Reg1.cambiarFormato(Reg1.getHoras(), hora, minuto, segundo, Reg1.getIp(), ip, puerto);
-
-
+  MaxHeap<IP> HeapIps(maxCapacity); // Heap con informacion de ip
+  
   std::ifstream bitacora("bitacoraHeap.txt"); //archivo a leer
     if(bitacora){
       MaxHeap<Registro> Inicial(bitacora, maxCapacity);
-
-      for(int i = 0; i < 10; i++){
-        std::cout<< Inicial.getData()[i].getAll() << std::endl;
+      std::cout<< Inicial.getCurrentSize() <<std::endl;
+      std::vector<Registro> sortedIP;
+      for(int i = 0; Inicial.getCurrentSize(); i++){
+        sortedIP.push_back(Inicial.getTop());
+        Inicial.pop();
       }
+
+      
+      std::cout << "Valor de la ip en los registros ordenados:\n" << std::endl;
+      for(int i = 0; i < 50; i++){
+        std::cout<< sortedIP[i].getIp_value() << std::endl;
+      }
+
+      
+
+      
+      
     }
     else {
       std::cout<< "Error al leer el archivo" <<std::endl;
