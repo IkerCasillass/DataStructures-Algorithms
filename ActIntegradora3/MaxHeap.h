@@ -1,4 +1,4 @@
-    #ifndef _MAXHEAP_H_
+#ifndef _MAXHEAP_H_
 #define _MAXHEAP_H_
 
 #include "Registro.h"

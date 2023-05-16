@@ -1,7 +1,8 @@
-    #ifndef _MAXHEAP_H_
+#ifndef _MAXHEAP_H_
 #define _MAXHEAP_H_
 
 #include "Registro.h"
+#include "IP.h"
 #include <iostream>
 #include <stdexcept>
 #include <vector>
@@ -173,6 +174,7 @@ void MaxHeap<T>::push(T key) {
     k = parent(k);
   }
 }
+
 
 template <class T>
 T MaxHeap<T>::getTop() {

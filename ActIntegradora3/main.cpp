@@ -72,12 +72,16 @@ int main() {
         j++;
       }
 
-
+      
+      
       std::cout<< "Numero de IPS: " << HeapIps.getCurrentSize() << std::endl;
-      for(int i = 0; i < 50; i++){
-        std::cout<< HeapIps.getData()[i].getIp_value() << ":" << HeapIps.getData()[i].getAccess_num() << std::endl;
-      }
+   
 
+      std::cout << "\n5 IP con más número de accesos:\n " << std::endl;
+      for(int i = 0; i < 5; i++){
+        std::cout<<"[" << i+1 << "] " << HeapIps.getTop().getAccess_info() << " {" << HeapIps.getTop().getAccess_num() << "}" << std::endl;
+        HeapIps.pop();
+      }
     }
     else {
       std::cout<< "Error al leer el archivo" <<std::endl;

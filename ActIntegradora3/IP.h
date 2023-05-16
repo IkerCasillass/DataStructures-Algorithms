@@ -1,3 +1,6 @@
+#ifndef _IP_H_
+#define _IP_H_
+
 #include <iostream>
 #include "Registro.h"
 class IP {
@@ -53,25 +56,27 @@ unsigned int IP::getIp_value(){
 
 // Sobrecarga de operadores
 bool IP::operator==(const IP &other) {
-  return this->ip_value == other.ip_value;
+  return this->access_num == other.access_num;
 }
 
 bool IP::operator!=(const IP &other) {
-  return this->ip_value != other.ip_value;
+  return this->access_num != other.access_num;
 }
 
 bool IP::operator>=(const IP &other) {
-  return this->ip_value >= other.ip_value;
+  return this->access_num >= other.access_num;
 }
 
 bool IP::operator<=(const IP &other) {
-  return this->ip_value <= other.ip_value;
+  return this->access_num <= other.access_num;
 }
 
 bool IP::operator>(const IP &other) {
-  return this->ip_value > other.ip_value;
+  return this->access_num > other.access_num;
 }
 
 bool IP::operator<(const IP &other) {
-  return this->ip_value < other.ip_value;
+  return this->access_num < other.access_num;
 }
+
+#endif //IP.h
