@@ -55,7 +55,6 @@ void Registro::setPuerto(std::string _puerto) { puerto = _puerto; }
 void Registro::setFalla(std::string _falla) { falla = _falla; }
 void Registro::setIp_value(unsigned int _ip_value) { ip_value = _ip_value; }
 
-// Setter con calculo de valor total de Ip
 void Registro::setIp_value(std::string _ip_value) { 
   std::string octeto;
 
@@ -97,7 +96,28 @@ std::string Registro::getAll() {
 }
 
 
+
+//Otros
+int Registro::binarySearch(std::vector<Registro> &vectorSorted, int key, int &compara){
+  int low = 0;
+  int high = vectorSorted.size() - 1;
+  int mid = 0;
+  compara = 0;
+  while (low <= high) {
+    mid = low + (high - low) / 2;
+    compara++;
+    if (key == vectorSorted[mid].getFechaHora())
+      return mid;
+    else if (key < vectorSorted[mid].getFechaHora())
+      high = mid - 1;
+    else
+      low = mid + 1;
+  }
+  return -1;
+}
+
 // Separa horas-minutos-segundos e ip-puerto
+
 void Registro::cambiarFormato(std::string fechahora, std::string &hora, std::string &minuto, std::string &segundo, std::string ip_puerto, std::string &ip, std::string &puerto){
 
   //Separando horas/minutos/segundos
@@ -134,14 +154,44 @@ void Registro::cambiarFormato(std::string fechahora, std::string &hora, std::str
   getline(ssip_puerto, ip, ':');
   getline(ssip_puerto, puerto, ':');
 
+
   //Setear puerto e ip
   this->setIp(ip);
   this->setPuerto(puerto);
 
   // Transformar y setear ip
   this->setIp_value(ip);
+  
 }
 
+
+
+
+// Sobrecarga de operadores de comparacion
+// Comparacion de objetos de la clase Registro usando el Linux timestamp
+// bool Registro::operator==(const Registro &other) {
+//   return this->fechaHora == other.fechaHora;
+// }
+
+// bool Registro::operator!=(const Registro &other) {
+//   return this->fechaHora != other.fechaHora;
+// }
+
+// bool Registro::operator>=(const Registro &other) {
+//   return this->fechaHora >= other.fechaHora;
+// }
+
+// bool Registro::operator<=(const Registro &other) {
+//   return this->fechaHora <= other.fechaHora;
+// }
+
+// bool Registro::operator>(const Registro &other) {
+//   return this->fechaHora > other.fechaHora;
+// }
+
+// bool Registro::operator<(const Registro &other) {
+//   return this->fechaHora < other.fechaHora;
+// }
 
 // Comparacion de Registro por direccion ip
 bool Registro::operator==(const Registro &other) {

@@ -18,6 +18,10 @@
 * Arturo Sánchez | A01275427
 * */
 
+
+
+
+
 #include <iostream>
 #include <chrono>
 #include <fstream> // ayuda en lectura y escritura de archivo
@@ -29,15 +33,16 @@
 
 
 int main() { 
-  
+  std::string hora, minuto, segundo, ip, puerto;
   int maxCapacity = 16810;
-  std::vector<Registro> sortedIP;
   MaxHeap<IP> HeapIps(maxCapacity); // Heap con informacion de ip
-  std::ifstream bitacora("bitacoraHeap.txt"); //archivo a leer
+  std::vector<Registro> sortedIP;
+
   
+  std::ifstream bitacora("bitacoraHeap.txt"); //archivo a leer
     if(bitacora){
-      // Creamos MaxHeap<Registro>
-      MaxHeap<Registro> Inicial(bitacora, maxCapacity); 
+      MaxHeap<Registro> Inicial(bitacora, maxCapacity); // Creamos MaxHeap<Registro>
+      
       
       // Guardar los elementos ordenados en un vector usando heapsort
       for(int i = 0; Inicial.getCurrentSize(); i++){ 
@@ -56,6 +61,7 @@ int main() {
         }
         else {
           //--------Insertar en Heap<IP> ---------
+          
           // Crear Ip temporal con direccion y # acceso - valor ip
           IP IPtemp(sortedIP[j].getIp(), cont, sortedIP[j].getIp_value());
           // Insertar
@@ -65,9 +71,12 @@ int main() {
         }
         j++;
       }
+
       
-      // ---------- Mostrar info --------------------------
+      
       std::cout<< "Numero de IPS: " << HeapIps.getCurrentSize() << std::endl;
+   
+
       std::cout << "\n5 IP con más número de accesos:\n " << std::endl;
       for(int i = 0; i < 5; i++){
         std::cout<<"[" << i+1 << "] " << HeapIps.getTop().getAccess_info() << " {" << HeapIps.getTop().getAccess_num() << "}" << std::endl;
@@ -78,5 +87,7 @@ int main() {
       std::cout<< "Error al leer el archivo" <<std::endl;
     }    
 
+
+  
   return 0; 
 }
