@@ -13,8 +13,6 @@ template <class T> class MaxHeap {
 private:
   // contiene los elementos del heap
   std::vector<T> data;
-  std::vector<T> insertedElements;
-
   // capacidad maxima del heap
   int maxSize;
   // tamano actual del heap
@@ -37,14 +35,10 @@ public:
   void push(T key);
   T getTop();
   void pop();
-    // TO-DO
-  void heapSort();
-  std::vector<T> getInsertedElements();
 };
 
 
 // Constructores
-
 template <class T> 
 MaxHeap<T>::MaxHeap(int maxCapacity) {
   maxSize = maxCapacity;
@@ -52,6 +46,8 @@ MaxHeap<T>::MaxHeap(int maxCapacity) {
   data.resize(maxSize);
 }
 
+// Constructor de MaxHeap con archivo
+// Complejidad O(n)
 template <class T>
 MaxHeap<T>::MaxHeap(std::ifstream &archivo, int maxCapacity) {
   // Constructor con archivo
@@ -123,7 +119,6 @@ template <class T> MaxHeap<T>::~MaxHeap() {
 
 
 // Getters
-
 template <class T> 
 int MaxHeap<T>::getMaxCapacity() { return maxSize; }
 
@@ -139,7 +134,7 @@ std::vector<T> MaxHeap<T>::getData(){ return data; }
 template <class T> 
 bool MaxHeap<T>::isEmpty() { return (currentSize <= 0); }
 
-
+// Complejidad O(n)
 template <class T> 
 void MaxHeap<T>::printHeap() {
   std::cout << "Contenido del maxheap:" << std::endl;
@@ -158,6 +153,7 @@ int MaxHeap<T>::left(int k) { return (2 * k + 1); }
 template <class T>
 int MaxHeap<T>::right(int k) { return (2 * k + 2); }
 
+// Complejidad O(log n)
 template <class T>
 void MaxHeap<T>::push(T key) {
   
@@ -175,7 +171,7 @@ void MaxHeap<T>::push(T key) {
   }
 }
 
-
+// Complejidad O(1)
 template <class T>
 T MaxHeap<T>::getTop() {
   
@@ -185,7 +181,6 @@ T MaxHeap<T>::getTop() {
   }
   return data[0];
 }
-
 
 // Complejidad O(log n)
 // Consultado: https://www.geeksforgeeks.org/heap-sort/
@@ -198,37 +193,6 @@ template <class T> void MaxHeap<T>::pop() {
   data[0] = data[currentSize - 1];
   // size -1
   currentSize--;
-  int k = 0;
-  // Mientras left child tenga un indice valido
-  while (left(k) < currentSize) {
-    int j = left(k);
-    if (right(k) < currentSize && data[right(k)] > data[left(k)]) {
-      j = right(k);
-    }
-
-    if (data[k] >= data[j]) {
-      // Max heap ya esta acomodado
-      break;
-    }
-    std::swap(data[k], data[j]);
-    k = j;
-  }
-}
-
-template <class T>
-std::vector<T> MaxHeap<T>::getInsertedElements(){
-  return insertedElements;
-}
-
-template <class T> void MaxHeap<T>::heapSort() {
-  // heap vacio
-  if (isEmpty()) {
-    throw std::out_of_range("El heap esta vacio");
-  }
-  // Cambia primer elemento con ultimo
-  data[0] = data[currentSize - 1];
-  // size -1
-  //currentSize--;
   int k = 0;
   // Mientras left child tenga un indice valido
   while (left(k) < currentSize) {

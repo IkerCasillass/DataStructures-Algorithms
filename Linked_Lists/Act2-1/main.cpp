@@ -149,5 +149,6 @@ int main() {
   LinkedList<int> nueva_lista(miLista);
   nueva_lista.printList();
   std::cout << "Lista copiada exitosamente\n"<<std::endl;
+  
   return 0;
 }

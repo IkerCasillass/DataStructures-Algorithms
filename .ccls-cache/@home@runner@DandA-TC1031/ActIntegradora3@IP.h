@@ -3,11 +3,13 @@
 
 #include <iostream>
 #include "Registro.h"
-class IP {
+
+// Clase para almacenar la información de las ip
+class IP {//Declaracion de la clase IP
   private:
-    int access_num;
-    unsigned int ip_value;
-    std::string access_info;
+    int access_num;//Declara la variable access_num de tipo int
+    unsigned int ip_value;//Declara la variable ip_value de tipo unsigned int
+    std::string access_info;//Declara la variable access_info de tipo std::string
 
   public:
   IP();
@@ -44,38 +46,38 @@ IP::~IP(){}
 
 
 // Getters
-int IP::getAccess_num(){
+int IP::getAccess_num(){//define un método llamado getAccess_num() en la clase IP que devuelve un valor entero
   return access_num;
 }
-std::string IP::getAccess_info(){
+std::string IP::getAccess_info(){//define un método llamado getAccess_info() que devuelve un valor de tipo std::string
   return access_info;
 }
-unsigned int IP::getIp_value(){
+unsigned int IP::getIp_value(){//define un método llamado getIp_value() que devuelve un valor entero sin signo
   return ip_value;
 }
 
 // Sobrecarga de operadores
-bool IP::operator==(const IP &other) {
+bool IP::operator==(const IP &other) {//define la sobrecarga del operador de igualdad (==) para la clase IP
   return this->access_num == other.access_num;
 }
 
-bool IP::operator!=(const IP &other) {
+bool IP::operator!=(const IP &other) {//define la sobrecarga del operador de desigualdad (!=) para la clase IP
   return this->access_num != other.access_num;
 }
 
-bool IP::operator>=(const IP &other) {
+bool IP::operator>=(const IP &other) {//define la sobrecarga del operador mayor o igual (>=) para la clase IP
   return this->access_num >= other.access_num;
 }
 
-bool IP::operator<=(const IP &other) {
+bool IP::operator<=(const IP &other) {//define la sobrecarga del operador menor o igual (<=) para la clase IP
   return this->access_num <= other.access_num;
 }
 
-bool IP::operator>(const IP &other) {
+bool IP::operator>(const IP &other) {//define la sobrecarga del operador mayor que (>) para la clase IP
   return this->access_num > other.access_num;
 }
 
-bool IP::operator<(const IP &other) {
+bool IP::operator<(const IP &other) {//define la sobrecarga del operador menor que (<) para la clase IP
   return this->access_num < other.access_num;
 }
 
