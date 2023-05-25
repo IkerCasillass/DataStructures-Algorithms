@@ -6,6 +6,7 @@
 // transformar una fecha a numero decimal
 #include <ctime>  
 #include <iostream>
+//incluye las bibliotecas pala la implementacion de la clase registro
 
 //Representar un evento (registro) dentro de la bitacora
 class Registro {
@@ -48,12 +49,7 @@ class Registro {
     unsigned int getIp_value();
     time_t getFechaHora();
 
-    //Otros
-    int binarySearch(std::vector<Registro> &vectorSorted, int key, int &compara);
-
     void cambiarFormato(std::string fechahora, std::string &hora, std::string &minuto, std::string &segundo, std::string ip_puerto, std::string &ip, std::string &puerto);
-
-
 
     // Sobre carga de operadores
     bool operator ==(const Registro&);
