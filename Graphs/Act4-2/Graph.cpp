@@ -9,6 +9,10 @@ Graph::~Graph() {
   adjList.clear();
 }
 
+int Graph::getNumEdges(){
+  return numEdges;
+}
+
 void Graph::split(std::string line, std::vector<int> & res) {
     size_t strPos = line.find(" ");
     size_t lastPos = 0;
@@ -106,6 +110,9 @@ void Graph::BFS(int v) {
   std::cout << std::endl;
 }
 
+
+// Complejidad O((|V | + |E|) log |V |)
+
 void Graph::dijkstraAlgorithm(int v) {
   // Crear una priority queue del STL de C++
   // https://www.geeksforgeeks.org/implement-min-heap-using-stl/
@@ -142,4 +149,38 @@ void Graph::dijkstraAlgorithm(int v) {
     else
       std::cout << i << "\tINF" << std::endl;
   }
+}
+
+
+// Grafo bipartita - Complejidad O(|V| + |E|)
+
+bool Graph::colorBipartiteGraph(int v, int col, std::vector<int> &color){
+   if (color[v] != -1 && color[v] != col) {
+    return false;
+  }
+  color[v] = col;
+  bool ans = true;
+
+  NodeLinkedList<std::pair<int, int>> *ptr = adjList[v].getHead();
+    
+  while (ptr != nullptr) {
+    std::pair<int, int> par = ptr->data;
+    int nodeU = par.first;
+    
+    if (color[nodeU] == -1) {
+      ans &= colorBipartiteGraph(nodeU, 1 - col, color);
+    }
+
+    else if (color[nodeU] != 1 - col) {
+      return false;
+    }
+
+    ptr = ptr->next;
+  }
+  return ans;
+}
+
+bool Graph::isBipartite(int v, int col){
+  std::vector<int> color(numNodes + 1, -1);  // Inicializar vector de colores
+  return colorBipartiteGraph(v, col, color);
 }

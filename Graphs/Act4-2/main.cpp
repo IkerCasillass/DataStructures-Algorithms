@@ -11,7 +11,8 @@
 * Compilacion para ejecucion:  
      g++ -std=c++17 -Wall -O3 -o main *.cpp
 *    g++ -std=c++17 -O3 -o main *.cpp 
-* Ejecucion:
+
+* Ejecucion: !!!!!
 *    ./main < TestCases/test01.txt
 * ------------------------------------
 * Equipo 2:
@@ -34,8 +35,22 @@ int main() {
   g1.print();
   std::cout << std::endl;
   std::cout << std::endl;
-  g1.BFS(1);
+  //g1.BFS(1);
   g1.dijkstraAlgorithm(1);
+
+  int startcolor = 0;
+  // Inicia desde primer vertice
+  bool isBipartite = g1.isBipartite(1, startcolor);
+
+  if(isBipartite){
+    std::cout << "\n<< Grafo bipartita >>" << std::endl;
+  }
+  else {
+    std::cout << "\n<< Grafo NO bipartita >>" << std::endl;
+  }
+    
+
+  
 
   return 0;
 } 

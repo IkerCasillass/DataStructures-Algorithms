@@ -22,8 +22,7 @@ class Graph {
 
     void split(std::string line, std::vector<int> & res);
     // To-DO
-    //bool colorBipartiteGraph(int v, int col, std::vector<int> &color);
-    
+    bool colorBipartiteGraph(int v, int col, std::vector<int> &color);
 
   public:
     Graph();
@@ -32,8 +31,10 @@ class Graph {
     void print();
     void BFS(int v);
     void dijkstraAlgorithm(int v);
+    int getNumEdges();
+
     // To-DO
-    //void isBipartite();  
+    bool isBipartite(int v, int col);  
 
 
 };
