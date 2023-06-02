@@ -18,7 +18,7 @@ class Graph {
     int numNodes;
     int numEdges;
     // Lista de adyacencia (vector de listas ligadas de pares nodo,peso)
-    std::vector<LinkedList<std::pair<int, int>>> adjList;
+    std::vector<LinkedList<std::pair<std::string, int>>> adjList;
 
     void split(std::string line, std::vector<int> & res);
     // To-DO

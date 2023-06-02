@@ -44,14 +44,23 @@ void Incidencia::setIpDestino(std::string _ip_destino) { ip_destino = _ip_destin
 void Incidencia::setPuertoOrigen(std::string _puerto_origen) { puerto_origen = _puerto_origen; }
 void Incidencia::setPuertoDestino(std::string _puerto_destino) { puerto_destino = _puerto_destino; }
 void Incidencia::setMes(std::string _mes) { mes = _mes; }
+void Incidencia::setPeso(int _peso) { peso = _peso; }
+void Incidencia::setNumVecinos(int _num_vecinos) {  num_vecinos = _num_vecinos; }
 
 //getters
 unsigned int Incidencia::getIpOrigenValue(){ return ip_origen_value; }
 std::string Incidencia::getIpOrigen(){ return ip_origen; }
+std::string Incidencia::getIpDestino(){ return ip_destino; }
+std::string Incidencia::getPuertoOrigen(){return puerto_origen; }
+std::string Incidencia::getPuertoDestino() {return puerto_destino; }
+std::string Incidencia::getPesoInicial(){ return peso_inicial; }
+int Incidencia::getNumVecinos(){ return num_vecinos; }
+int Incidencia::getPeso(){ return peso; }
+
 
 // Setter con calculo de valor total de Ip
 void Incidencia::setIpValue(std::string _ip_value, int n) { 
-
+  
   std::string octeto;
 
   std::stringstream octetos(_ip_value);
@@ -75,18 +84,22 @@ void Incidencia::setIpValue(std::string _ip_value, int n) {
 
   if(n == 0){
     ///////
-
     this->setIpOrigenValue(totalValue);
+    ip_origen = _ip_value;
     //ip_origen_value = totalValue;
   }
   else{
     ip_destino_value = totalValue;
+    ip_destino = _ip_value;
   }
     
 }
 
-// Separa  ip-puerto
-void Incidencia::cambiarFormato(std::string ip_puerto_origen, std::string ip_puerto_destino, std::string &ip_og, std::string &puerto_og, std::string &ip_dst, std::string &puerto_dst){
+// Separa  ip-puerto y setea peso en int
+void Incidencia::cambiarFormato(std::string ip_puerto_origen, std::string ip_puerto_destino, std::string pesostr){
+
+
+  std::string ip_og, puerto_og, ip_dst,  puerto_dst;
   
   // Separando puerto de ip
   std::stringstream ssip_puerto_og(ip_puerto_origen);
@@ -106,6 +119,8 @@ void Incidencia::cambiarFormato(std::string ip_puerto_origen, std::string ip_pue
   // Transformar y setear ip
   this->setIpValue(ip_og, 0);
   this->setIpValue(ip_dst, 1);
+
+  this->setPeso(stoi(pesostr));
 }
 
 

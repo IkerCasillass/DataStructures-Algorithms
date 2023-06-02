@@ -5,6 +5,8 @@
 #include "Incidencia.h"
 #include <iostream>
 #include <sstream>
+#include <queue>
+#include <vector>
 
 
 Graph::Graph() {
@@ -47,14 +49,13 @@ Graph::Graph(std::ifstream &input) {
       adjList.resize(numNodes + 1);
       // Declarar un lista vacia para cada renglon y se almacena en el vector
       for (int k = 1; k <= numNodes; k++) {
-        LinkedList<std::pair<int, int>> tmpList;
+        LinkedList<std::pair<std::string, int>> tmpList;
         adjList[k] = tmpList;
       }
     }
       
     //Guardar nodos
     else if (i <= numNodes){
-  
       Incidencia nodoOrigen;
       nodoOrigen.setIpValue(line, 0);
       nodosOrigen.push_back(nodoOrigen);
@@ -64,10 +65,12 @@ Graph::Graph(std::ifstream &input) {
     else if(i <= numNodes + numEdges){
       std::istringstream ss(line);
       // Obtenemos los datos que estan separados por espacios
-      ss >> mes >> dia >> horas >> ip_origen >> ip_destino >> error1 >> error2 >> error3 >> error4 >>
+      ss >> mes >> dia >> horas >> ip_origen >> ip_destino >> peso >> error1 >> error2 >> error3 >> error4 >>
           error5 >> error6;
+      
+      //std::cout<< ip_origen << "----" << ip_destino <<std::endl;
       Incidencia IncidenciaTemp(mes,dia,horas,ip_origen,ip_destino, peso, razon);
-      IncidenciaTemp.cambiarFormato(ip_origen, ip_destino);
+      IncidenciaTemp.cambiarFormato(ip_origen, ip_destino, peso);
       incidencias.push_back(IncidenciaTemp);
     }
     i++;
@@ -78,17 +81,54 @@ Graph::Graph(std::ifstream &input) {
 
    // Crear mapa para almacenar nodos y su numero de orden
   std::map<int, std::string> nodosOrdenados;
-  for (int j = 0; j < 100; j++) { //  cambiar por tamano de nodosOrdenados
+  for (int j = 0; j < (int)nodosOrigen.size(); j++) {
     nodosOrdenados[j + 1] = nodosOrigen[j].getIpOrigen();
   }
-
-  // Imprimir el mapa de nodos ordenados
-  for (const auto& pair : nodosOrdenados) {
-    std::cout << pair.first << " --- " << pair.second << std::endl;
-  }
-}
-
+  
+  // Construir lista de adyacencia - -- - -- -- - 
+  std::sort(incidencias.begin(), incidencias.end());
+  
+  int x=0;
+  int numV = 0;
+  std::string nombre = nodosOrigen[0].getIpOrigen();
+  
+  for(int i = 1; i <= numEdges; i++) {
+    std::string nombre_temp = nombre;
+    nombre = incidencias[i-1].getIpOrigen();
     
+    if(nombre_temp != nombre){
+      nodosOrigen[x].setNumVecinos(numV);
+      x++;
+      numV = 0;
+    }
+      
+    int nodoU = x;
+    
+    std::string nodoV = incidencias[i-1].getIpDestino();
+    int weight = incidencias[i-1].getPeso();
+
+    // grafo dirigido agregar aristas (u,v) unicamente 
+    adjList[nodoU].addLast(std::make_pair(nodoV, weight));
+    numV++;
+  }
+
+  std::ofstream outputFile("grados_ips.txt");
+  if(outputFile.is_open()){
+    for(int i = 1; i <= numNodes; i++){
+      outputFile <<"(" << nodosOrigen[i].getIpOrigen() << "," << nodosOrigen[i].getNumVecinos() << ")" << std::endl;
+    }
+    outputFile.close();
+  }
+  else{
+    std::cout << "Error con el archivo." << std::endl;
+  }
+
+  std::cout << nodosOrigen[13356].getNumVecinos() << std::endl;
+  std::cout << nodosOrigen[13357].getNumVecinos() << std::endl;
+  std::cout << nodosOrigen[13358].getNumVecinos() << std::endl;
+  std::cout << nodosOrigen[13359].getNumVecinos() << std::endl;
+  std::cout << nodosOrigen[13369].getNumVecinos() << std::endl;
+}
 
 Graph::~Graph() {
   adjList.clear();
@@ -108,7 +148,7 @@ void Graph::split(std::string line, std::vector<int> & res) {
     }
     res.push_back(stoi(line.substr(lastPos, line.size() - lastPos)));
 }
-
+/*
 void Graph::loadDirWeightedGraph(std::istream & input) {
   std::string line;
   int i = 0;
@@ -127,7 +167,7 @@ void Graph::loadDirWeightedGraph(std::istream & input) {
       adjList.resize(numNodes + 1);
       // Declarar un lista vacia para cada renglon y se almacena en el vector
       for (int k = 1; k <= numNodes; k++) {
-        LinkedList<std::pair<int, int>> tmpList;
+        LinkedList<std::pair<std::string, int>> tmpList;
         adjList[k] = tmpList;
       }
       i++;
@@ -143,7 +183,9 @@ void Graph::loadDirWeightedGraph(std::istream & input) {
     adjList[nodoU].addLast(std::make_pair(nodoV, weight));
     i++;
   }
+  
 }
+*/
 
 void Graph::print() {
   std::cout << "numNode: " << numNodes << std::endl;
@@ -151,9 +193,9 @@ void Graph::print() {
   std::cout << "Adjacency List" << std::endl;
   for (int nodeU = 1; nodeU <= numNodes; nodeU++) {
     std::cout << "vertex " << nodeU << ": ";
-    NodeLinkedList<std::pair<int, int>> *ptr = adjList[nodeU].getHead();
-    while (ptr != nullptr) {
-      std::pair<int, int> par = ptr->data;
+    NodeLinkedList<std::pair<std::string, int>> *ptr = adjList[nodeU].getHead();
+    while (ptr != nullptr ) {
+      std::pair<std::string, int> par = ptr->data;
       std::cout << "{" << par.first << "," << par.second << "} ";
       ptr = ptr->next;
     }
@@ -162,110 +204,95 @@ void Graph::print() {
 }
 
 
-void Graph::BFS(int v) {
-  // Declarar un set del STL de C++ (elementos unicos y ordenados)
-  std::set<int> visited;
-  // Crear un queue
-  QueueLinkedList<int> queue;
-  // Marca el vertice de partida v como visitado y lo mete en el queue
-  visited.insert(v);
-  queue.enqueue(v);
-  std::cout << "Recorrido BFS " << std::endl;
-  while (!queue.isEmpty()) {
-    // Extraemos un vertice de el queue
-    v = queue.getFront();
-    queue.dequeue();
-    std::cout << v << " ";
-    // Obtener los vecinos del vertice v
-    // Si estos no han sido visitados marcarlos como visitados
-    // y los metemos a el queue
-    NodeLinkedList<std::pair<int, int>> *ptr = adjList[v].getHead();
-    while (ptr != nullptr) {
-      std::pair<int, int> par = ptr->data;
-      int u = par.first; // nodo u es vecino de v
-      // Verificar si el vertice u (vecino de v) ya fue visitado
-      bool isVisited = visited.find(u) != visited.end();
-      if (!isVisited) { // no visitado
-        visited.insert(u); // marcar como visitado
-        queue.enqueue(u); // meter en el queue
-      }
-      ptr = ptr->next;
-    }
-  }
-  std::cout << std::endl;
-}
+// void Graph::BFS(int v) {
+//   // Declarar un set del STL de C++ (elementos unicos y ordenados)
+//   std::set<int> visited;
+//   // Crear un queue
+//   QueueLinkedList<int> queue;
+//   // Marca el vertice de partida v como visitado y lo mete en el queue
+//   visited.insert(v);
+//   queue.enqueue(v);
+//   std::cout << "Recorrido BFS " << std::endl;
+//   while (!queue.isEmpty()) {
+//     // Extraemos un vertice de el queue
+//     v = queue.getFront();
+//     queue.dequeue();
+//     std::cout << v << " ";
+//     // Obtener los vecinos del vertice v
+//     // Si estos no han sido visitados marcarlos como visitados
+//     // y los metemos a el queue
+//     NodeLinkedList<std::pair<int, int>> *ptr = adjList[v].getHead();
+//     while (ptr != nullptr) {
+//       std::pair<int, int> par = ptr->data;
+//       int u = par.first; // nodo u es vecino de v
+//       // Verificar si el vertice u (vecino de v) ya fue visitado
+//       bool isVisited = visited.find(u) != visited.end();
+//       if (!isVisited) { // no visitado
+//         visited.insert(u); // marcar como visitado
+//         queue.enqueue(u); // meter en el queue
+//       }
+//       ptr = ptr->next;
+//     }
+//   }
+//   std::cout << std::endl;
+// }
 
 
 // Complejidad O((|V | + |E|) log |V |)
 
-void Graph::dijkstraAlgorithm(int v) {
-  // Crear una priority queue del STL de C++
-  // https://www.geeksforgeeks.org/implement-min-heap-using-stl/
-  std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> pq;
-  // vector de distancias con el resultado del algoritmo
-  std::vector<int> dist(numNodes+1, INF);
-  // Insertar el nodo de origen v en la priority queue -- pares (dist, vertice)
-  pq.push(std::make_pair(0, v)); // la distancia de v a v es cero
-  dist[v] = 0;
-  // Mientras el priority queue no este vacio
-  while (!pq.empty()) {
-    // Extraer un vertice de el priority queue
-    int nodeU = pq.top().second; // pares (dist, vertice)
-    pq.pop();
-    // Obtener los vecions del vertice nodeU
-    NodeLinkedList<std::pair<int, int>> *ptr = adjList[nodeU].getHead();
-    while (ptr != nullptr) {
-      std::pair<int, int> par = ptr->data;
-      int nodeV = par.first; // nodeV es vecino de nodeU
-      int peso = par.second; // peso de la arista (nodoU,nodeV)
-      if (dist[nodeV] > dist[nodeU]+peso) {
-        // Actualizar la distancia (mas corta) de nodeV
-        dist[nodeV] = dist[nodeU] + peso;
-        pq.push(std::make_pair(dist[nodeV], nodeV));
-      }
-      ptr = ptr->next;
-    }
-  }
-  // Imprimir las distancias mas cortas entre v y todos los nodos del grafo
-  std::cout << "Vertice\tDistancia desde v" << std::endl;
-  for (int i = 1; i <= numNodes; i++) {
-    if (dist[i] != INF)
-      std::cout << i << "\t" << dist[i] << std::endl;
-    else
-      std::cout << i << "\tINF" << std::endl;
-  }
-}
+// void Graph::dijkstraAlgorithm(int v) {
+//   // Crear una priority queue del STL de C++
+//   // https://www.geeksforgeeks.org/implement-min-heap-using-stl/
+//   std::priority_queue<std::pair<int,int>, std::vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> pq;
+//   // vector de distancias con el resultado del algoritmo
+//   std::vector<int> dist(numNodes+1, INF);
+//   // Insertar el nodo de origen v en la priority queue -- pares (dist, vertice)
+//   pq.push(std::make_pair(0, v)); // la distancia de v a v es cero
+//   dist[v] = 0;
+//   // Mientras el priority queue no este vacio
+//   while (!pq.empty()) {
+//     // Extraer un vertice de el priority queue
+//     int nodeU = pq.top().second; // pares (dist, vertice)
+//     pq.pop();
+//     // Obtener los vecions del vertice nodeU
+//     NodeLinkedList<std::pair<std::string, int>> *ptr = adjList[nodeU].getHead();
+//     while (ptr != nullptr) {
+//       std::pair<std::string, int> par = ptr->data;
+//       std::string nodeV = par.first; // nodeV es vecino de nodeU
+//       int peso = par.second; // peso de la arista (nodoU,nodeV)
+//       if (dist[nodeV] > dist[nodeU]+peso) {
+//         // Actualizar la distancia (mas corta) de nodeV
+//         dist[nodeV] = dist[nodeU] + peso;
+//         pq.push(std::make_pair(dist[nodeV], nodeV));
+//       }
+//       ptr = ptr->next;
+//     }
+//   }
+
+// std::ofstream outputFile("distancia_bootmaster.txt");
+//   if(outputFile.is_open()){
+//     for(int i = 1; i <= numNodes; i++){
+//       if(dist[i] != INF)
+//         outputFile << i << " " << dist[i] << std::endl;
+//       else
+//         outputFile << i << " INF" << std::endl;
+//     }
+//     outputFile.close();
+//   }
+//   else{
+//     std::cout << "Error con el archivo." << std::endl;
+//   }
 
 
-// Grafo bipartita - Complejidad O(|V| + |E|)
+//   //if(outputFile)
+  
+//   // Imprimir las distancias mas cortas entre v y todos los nodos del grafo
+//   std::cout << "Vertice\tDistancia desde v" << std::endl;
+//   for (int i = 1; i <= numNodes; i++) {
+//     if (dist[i] != INF)
+//       std::cout << i << "\t" << dist[i] << std::endl;
+//     else
+//       std::cout << i << "\tINF" << std::endl;
+//   }
+// }
 
-bool Graph::colorBipartiteGraph(int v, int col, std::vector<int> &color){
-   if (color[v] != -1 && color[v] != col) {
-    return false;
-  }
-  color[v] = col;
-  bool ans = true;
-
-  NodeLinkedList<std::pair<int, int>> *ptr = adjList[v].getHead();
-    
-  while (ptr != nullptr) {
-    std::pair<int, int> par = ptr->data;
-    int nodeU = par.first;
-    
-    if (color[nodeU] == -1) {
-      ans &= colorBipartiteGraph(nodeU, 1 - col, color);
-    }
-
-    else if (color[nodeU] != 1 - col) {
-      return false;
-    }
-
-    ptr = ptr->next;
-  }
-  return ans;
-}
-
-bool Graph::isBipartite(int v, int col){
-  std::vector<int> color(numNodes + 1, -1);  // Inicializar vector de colores
-  return colorBipartiteGraph(v, col, color);
-}

@@ -6,9 +6,7 @@
 class Incidencia {
   private:
     std::string mes, dia, horas, ip_origen, puerto_origen, ip_destino, puerto_destino, razon, peso_inicial;
-    int peso;
-
-    
+    int peso, num_vecinos;
 
   public:
     unsigned int ip_origen_value, ip_destino_value;
@@ -28,8 +26,10 @@ class Incidencia {
     void setPuertoOrigen(std::string);
     void setIpDestino(std::string);
     void setPuertoDestino(std::string);
-    void setPeso(std::string);
+    void setPesoInicial(std::string);
+    void setPeso(int);
     void setRazon(std::string);
+    void setNumVecinos(int);
     void setIpValue(std::string, int n); // string ip y 0 - 1 para conexion origen o destino
     
     std::string getAll();
@@ -43,10 +43,12 @@ class Incidencia {
     unsigned int getIpOrigenValue();
     std::string getPuertoOrigen();
     std::string getPuertoDestino();
-    std::string getPeso();
+    int getPeso();
+    int getNumVecinos();
+    std::string getPesoInicial();
     std::string getRazon();
 
-    void cambiarFormato(std::string, std::string);
+    void cambiarFormato(std::string, std::string, std::string);
 
     // Sobre carga de operadores
     bool operator !=(const Incidencia&);

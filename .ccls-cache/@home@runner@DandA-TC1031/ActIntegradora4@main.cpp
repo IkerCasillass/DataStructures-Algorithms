@@ -29,13 +29,17 @@
 #include "Graph.h"
 
 int main() { 
-  // std::stringstream inputInfo;
-  // inputInfo << std::cin.rdbuf(); 
-  // Construye un grafo a partir de la consola usando
-  // representacion de Lista de adyacencia
+  //int maxCapacity = 13371;
+  //MaxHeap<IP> HeapIps(maxCapacity); // Heap con informacion de ip
+  
   std::ifstream bitacora("bitacoraGrafos.txt"); // archivo a leer
   
   Graph g1(bitacora);
+  std::cout << "Grafo construido" << std::endl;
+
+  //g1.print();
+  
+  
 
   // Incidencia prueba;
 
