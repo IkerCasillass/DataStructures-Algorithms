@@ -1,8 +1,7 @@
 #ifndef _MAXHEAP_H_
 #define _MAXHEAP_H_
 
-#include "Registro.h"
-#include "IP.h"
+#include "Incidencia.h"
 #include <iostream>
 #include <stdexcept>
 #include <vector>
@@ -24,7 +23,7 @@ private:
 
 public:
   MaxHeap(int maxCapacity);
-  MaxHeap(std::ifstream &archivo, int maxCapacity); // Constructor con archivo
+  // MaxHeap(std::ifstream &archivo, int maxCapacity); // Constructor con archivo
   ~MaxHeap();
   bool isEmpty();
   int getMaxCapacity();
@@ -46,69 +45,6 @@ MaxHeap<T>::MaxHeap(int maxCapacity) {
   data.resize(maxSize);
 }
 
-// Constructor de MaxHeap con archivo
-// Complejidad O(n)
-template <class T>
-MaxHeap<T>::MaxHeap(std::ifstream &archivo, int maxCapacity) {
-  // Constructor con archivo
-  maxSize = maxCapacity;
-  currentSize = 0;
-  data.resize(maxSize);
-
-  // Variables para crear los registros
-  std::string linea;
-  std::string mes;
-  std::string dia;
-  std::string horas;
-  std::string minutos;
-  std::string segundos;
-  std::string ip_puerto;
-  std::string ip;
-  std::string puerto;
-  std::string error1;
-  std::string error2;
-  std::string error3;
-  std::string error4;
-  std::string error5;
-  std::string error6;
-
-  // Leer archivo
-  if (archivo.is_open()) {
-
-    // Obtener línea de archivo, y almacenar contenido en "linea"
-    while (getline(archivo, linea)) {
-
-      std::istringstream ss(linea);
-      // Obtenemos los datos que estan separados por espacios
-      ss >> mes >> dia >> horas >> ip_puerto >> error1 >> error2 >> error3 >> error4 >>
-          error5 >> error6;
-
-      std::string error;
-      // Juntamos las palabras del error en una sola cadena
-
-      error = error1 + " " + error2 + " " + error3 + " " + error4 + " " +
-              error5 + " " + error6;
-
-      // Registro temporal
-      Registro registrotemp(mes, dia, horas, "0", "0", ip, "0", error);
-
-      // Cambiar formato y setear hora
-      registrotemp.cambiarFormato(horas, horas, minutos, segundos, ip_puerto, ip, puerto);
-
-      // Añadir registros a Binary Heap 
-      
-      this->push(registrotemp);
-
-      // Borrar caracteres del string para nueva cadena de error
-      error1 = "";
-      error2 = "";
-      error3 = "";
-      error4 = "";
-      error5 = "";
-      error6 = "";
-    }
-  }
-}
 
 // Destructor
 template <class T> MaxHeap<T>::~MaxHeap() {

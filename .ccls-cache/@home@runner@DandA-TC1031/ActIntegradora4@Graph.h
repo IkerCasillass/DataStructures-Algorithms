@@ -26,6 +26,7 @@ class Graph {
 
   public:
     Graph();
+    Graph(std::ifstream &archivo); // Constructor con archivo
     ~Graph();
     void loadDirWeightedGraph(std::istream & input);
     void print();

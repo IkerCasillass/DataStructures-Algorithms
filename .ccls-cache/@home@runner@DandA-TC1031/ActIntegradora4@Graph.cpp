@@ -1,9 +1,87 @@
-
 #include "Graph.h"
+#include <algorithm>
+#include <fstream>
+#include <map>
+#include "Incidencia.h"
+#include <iostream>
+#include <sstream>
+
 
 Graph::Graph() {
   adjList.clear();
 }
+
+Graph::Graph(std::ifstream &input) {
+  std::string mes;
+  std::string dia;
+  std::string horas;
+  std::string ip_origen;
+  std::string ip_destino;
+  std::string peso;
+  std::string razon;
+  std::string error1;
+  std::string error2;
+  std::string error3;
+  std::string error4;
+  std::string error5;
+  std::string error6;
+
+  
+  std::vector<Incidencia> nodosOrigen;
+  std::vector<Incidencia> incidencias;
+  
+  std::string line;
+  std::map<int, std::string> ipInfo; //Map 
+  
+  int i = 0;
+
+  while (std::getline(input, line)) {
+    if (i == 0) {
+      std::vector<int> result;
+      split(line, result);
+      numNodes = result[0];
+      numEdges = result[1];
+
+      // Reservar memoria para renglones de la lista de adyacencia
+      // Nodos son uno basados (renglon 0 no sera usado)
+      adjList.resize(numNodes + 1);
+      // Declarar un lista vacia para cada renglon y se almacena en el vector
+      for (int k = 1; k <= numNodes; k++) {
+        LinkedList<std::pair<int, int>> tmpList;
+        adjList[k] = tmpList;
+      }
+      nodosOrigen.resize(numNodes);
+    }
+      
+    //Guardar nodos
+    else if (i <= numNodes){
+      // std::cout<< line << std::endl;
+      Incidencia nodoOrigen;
+      nodoOrigen.setIpValue(line, 0);
+      //std::cout << nodoOrigen.getIpOrigenValue() << std::endl;
+      nodosOrigen.push_back(nodoOrigen);
+    }
+      
+    // Guardar incidencias
+    else if(i <= numNodes + numEdges){
+      incidencias.resize(numEdges);
+      std::istringstream ss(line);
+      // Obtenemos los datos que estan separados por espacios
+      ss >> mes >> dia >> horas >> ip_origen >> ip_destino >> error1 >> error2 >> error3 >> error4 >>
+          error5 >> error6;
+      Incidencia IncidenciaTemp(mes,dia,horas,ip_origen,ip_destino, peso, razon);
+      //std::cout<< IncidenciaTemp.getIpOrigen() <<std::endl;
+      incidencias.push_back(IncidenciaTemp);
+    }
+    i++;
+  }
+
+  for(int j=0; j<100; j++){
+    std::cout<<incidencias[j].getIpOrigen() << std::endl;
+  }
+}
+
+    
 
 Graph::~Graph() {
   adjList.clear();

@@ -1,9 +1,94 @@
-
 #include "Graph.h"
+#include <algorithm>
+#include <fstream>
+#include <map>
+#include "Incidencia.h"
+#include <iostream>
+#include <sstream>
+
 
 Graph::Graph() {
   adjList.clear();
 }
+
+Graph::Graph(std::ifstream &input) {
+  std::string mes;
+  std::string dia;
+  std::string horas;
+  std::string ip_origen;
+  std::string ip_destino;
+  std::string peso;
+  std::string razon;
+  std::string error1;
+  std::string error2;
+  std::string error3;
+  std::string error4;
+  std::string error5;
+  std::string error6;
+
+  
+  std::vector<Incidencia> nodosOrigen;
+  std::vector<Incidencia> incidencias;
+  
+  std::string line;
+  // std::map<int, std::string> ipInfo; //Map 
+  
+  int i = 0;
+
+  while (std::getline(input, line)) {
+    if (i == 0) {
+      std::vector<int> result;
+      split(line, result);
+      numNodes = result[0];
+      numEdges = result[1];
+
+      // Reservar memoria para renglones de la lista de adyacencia
+      // Nodos son uno basados (renglon 0 no sera usado)
+      adjList.resize(numNodes + 1);
+      // Declarar un lista vacia para cada renglon y se almacena en el vector
+      for (int k = 1; k <= numNodes; k++) {
+        LinkedList<std::pair<int, int>> tmpList;
+        adjList[k] = tmpList;
+      }
+    }
+      
+    //Guardar nodos
+    else if (i <= numNodes){
+  
+      Incidencia nodoOrigen;
+      nodoOrigen.setIpValue(line, 0);
+      nodosOrigen.push_back(nodoOrigen);
+    }
+      
+    // Guardar incidencias
+    else if(i <= numNodes + numEdges){
+      std::istringstream ss(line);
+      // Obtenemos los datos que estan separados por espacios
+      ss >> mes >> dia >> horas >> ip_origen >> ip_destino >> error1 >> error2 >> error3 >> error4 >>
+          error5 >> error6;
+      Incidencia IncidenciaTemp(mes,dia,horas,ip_origen,ip_destino, peso, razon);
+      IncidenciaTemp.cambiarFormato(ip_origen, ip_destino);
+      incidencias.push_back(IncidenciaTemp);
+    }
+    i++;
+  }
+
+  // Ordenar nodos
+  std::sort(nodosOrigen.begin(), nodosOrigen.end());
+
+   // Crear mapa para almacenar nodos y su numero de orden
+  std::map<int, std::string> nodosOrdenados;
+  for (int j = 0; j < 100; j++) { //  cambiar por tamano de nodosOrdenados
+    nodosOrdenados[j + 1] = nodosOrigen[j].getIpOrigen();
+  }
+
+  // Imprimir el mapa de nodos ordenados
+  for (const auto& pair : nodosOrdenados) {
+    std::cout << pair.first << " --- " << pair.second << std::endl;
+  }
+}
+
+    
 
 Graph::~Graph() {
   adjList.clear();

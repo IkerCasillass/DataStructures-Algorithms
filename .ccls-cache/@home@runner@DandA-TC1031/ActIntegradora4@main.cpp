@@ -10,6 +10,7 @@
 *    
 * Ejecucion:
 *    ./main
+
 *
 * ------------------------------------
 * Equipo 2:
@@ -23,13 +24,24 @@
 #include <fstream> // ayuda en lectura y escritura de archivo
 #include <sstream> // facilita separar el string
 #include <stdlib.h> //exit
-#include "Registro.h"
 #include "MaxHeap.h"
-#include "IP.h"
-#include <unordered_map>
+#include "Incidencia.h"
+#include "Graph.h"
 
 int main() { 
+  // std::stringstream inputInfo;
+  // inputInfo << std::cin.rdbuf(); 
+  // Construye un grafo a partir de la consola usando
+  // representacion de Lista de adyacencia
+  std::ifstream bitacora("bitacoraGrafos.txt"); // archivo a leer
   
+  Graph g1(bitacora);
+
+  // Incidencia prueba;
+
+  // prueba.setIpValue("36.29.138.97", 0);
+
+  // std::cout << prueba.getIpOrigenValue();
 
   return 0; 
 }
