@@ -32,6 +32,7 @@ public:
 
   void printHeap();
   void push(T key);
+  void push_pair(T key);
   T getTop();
   void pop();
 };
@@ -100,12 +101,14 @@ void MaxHeap<T>::push(T key) {
   int k = currentSize;
   data[k] = key;
   currentSize++;
+  
   // Reparar las propiedades del maxheap si son violadas
-  while (k != 0 && data[parent(k)] < data[k]) {
+  while (k != 0 && data[parent(k)].getNumVecinos() < data[k].getNumVecinos()) {
     std::swap(data[k], data[parent(k)]);
     k = parent(k);
   }
 }
+
 
 // Complejidad O(1)
 template <class T>
@@ -130,14 +133,15 @@ template <class T> void MaxHeap<T>::pop() {
   // size -1
   currentSize--;
   int k = 0;
+  
   // Mientras left child tenga un indice valido
   while (left(k) < currentSize) {
     int j = left(k);
-    if (right(k) < currentSize && data[right(k)] > data[left(k)]) {
+    if (right(k) < currentSize && data[right(k)].getNumVecinos() > data[left(k)].getNumVecinos()) {
       j = right(k);
     }
 
-    if (data[k] >= data[j]) {
+    if (data[k].getNumVecinos() >= data[j].getNumVecinos()) {
       // Max heap ya esta acomodado
       break;
     }
