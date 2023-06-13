@@ -2,14 +2,16 @@
 #define _INCIDENCIA_H_
 
 #include <iostream>
+#include <vector>
 
 class Incidencia {
   private:
     std::string mes, dia, horas, ip_origen, puerto_origen, ip_destino, puerto_destino, razon, peso_inicial;
-    int peso, num_vecinos;
+    int peso = 0, num_vecinos = 0, entries = 0;
 
   public:
     unsigned int ip_origen_value, ip_destino_value;
+    std::vector<std::string> salidas, entradas;
 
     Incidencia();
     Incidencia(std::string _mes, std::string _dia, std::string _horas, std::string _ip_origen, std::string _ip_destino, std::string _peso, std::string razon);
@@ -30,6 +32,7 @@ class Incidencia {
     void setPeso(int);
     void setRazon(std::string);
     void setNumVecinos(int);
+    void setEntries(int);
     void setIpValue(std::string, int n); // string ip y 0 - 1 para conexion origen o destino
     
     std::string getAll();
@@ -47,6 +50,7 @@ class Incidencia {
     int getNumVecinos();
     std::string getPesoInicial();
     std::string getRazon();
+    int getEntries();
 
     void cambiarFormato(std::string, std::string, std::string);
 

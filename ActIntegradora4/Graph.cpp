@@ -90,12 +90,32 @@ Graph::Graph(std::ifstream &input, std::vector<Incidencia> &nodosOrigen) {
   for(int i = 1; i <= numEdges; i++) {
     std::string nombre_temp = nombre;
     nombre = incidencias[i-1].getIpOrigen();
-    
-    if(nombre_temp != nombre){
+    std::string accesado = incidencias[i-1].getIpDestino();
+
+
+    // Nodo sin salidas
+    if(nodosOrigen[x].getIpOrigen() != nombre_temp){
+      numV = 0;
       nodosOrigen[x].setNumVecinos(numV);
       x++;
-      numV = 0;
+      
     }
+    // Cambio de nodo cuando si hay salidas
+    else if(nombre_temp != nombre){
+      if(x >0 && nodosOrigen[x-1].getNumVecinos() == 0){
+        numV++;
+      }
+      nodosOrigen[x].salidas.push_back(incidencias[i-(numV+1)].getIpDestino());
+      nodosOrigen[x].setNumVecinos(numV);
+      numV = 0;
+      x++;
+    }
+    
+    // if(nombre_temp != nombre){
+    //   nodosOrigen[x].setNumVecinos(numV);
+    //   x++;
+    //   numV = 0;
+    // }
       
     int nodoU = x;
     
@@ -104,6 +124,14 @@ Graph::Graph(std::ifstream &input, std::vector<Incidencia> &nodosOrigen) {
 
     // grafo dirigido agregar aristas (u,v) unicamente 
     adjList[nodoU].addLast(std::make_pair(nodoV, weight));
+
+
+
+    //nombre_temp == nombre
+    if(nombre_temp == nombre){
+      nodosOrigen[x].salidas.push_back(incidencias[i-1].getIpDestino());
+    }
+    
     numV++;
   }
 }

@@ -56,6 +56,7 @@ std::string Incidencia::getPuertoDestino() {return puerto_destino; }
 std::string Incidencia::getPesoInicial(){ return peso_inicial; }
 int Incidencia::getNumVecinos(){ return num_vecinos; }
 int Incidencia::getPeso(){ return peso; }
+std::string Incidencia::getEntries(){ return entries; }
 
 
 // Setter con calculo de valor total de Ip

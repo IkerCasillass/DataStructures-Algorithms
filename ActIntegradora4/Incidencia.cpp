@@ -3,7 +3,7 @@
 #include <sstream>
 
 // Constructor default
-Incidencia::Incidencia(){
+Incidencia::Incidencia() {
   mes = "";
   dia = "";
   horas = "0";
@@ -11,14 +11,16 @@ Incidencia::Incidencia(){
   ip_origen_value = 0;
   puerto_origen = "";
   ip_destino = "";
-  puerto_destino =  "";
+  puerto_destino = "";
   peso_inicial = "";
   peso = 0;
   razon = "";
 }
 
 // Constructor
-Incidencia::Incidencia(std::string _mes, std::string _dia, std::string _horas, std::string _ip_origen, std::string _ip_destino, std::string _peso, std::string _razon){
+Incidencia::Incidencia(std::string _mes, std::string _dia, std::string _horas,
+                       std::string _ip_origen, std::string _ip_destino,
+                       std::string _peso, std::string _razon) {
 
   mes = _mes;
   dia = _dia;
@@ -31,49 +33,54 @@ Incidencia::Incidencia(std::string _mes, std::string _dia, std::string _horas, s
   razon = _razon;
 }
 
-Incidencia::~Incidencia(){
-  
-}
+Incidencia::~Incidencia() {}
 
 // Setters
 void Incidencia::setDia(std::string _dia) { dia = _dia; }
 void Incidencia::setHoras(std::string _horas) { horas = _horas; }
 void Incidencia::setIpOrigen(std::string _ip_origen) { ip_origen = _ip_origen; }
-void Incidencia::setIpOrigenValue(unsigned int _ip_origen_value) { ip_origen_value = _ip_origen_value; }
-void Incidencia::setIpDestino(std::string _ip_destino) { ip_destino = _ip_destino; }
-void Incidencia::setPuertoOrigen(std::string _puerto_origen) { puerto_origen = _puerto_origen; }
-void Incidencia::setPuertoDestino(std::string _puerto_destino) { puerto_destino = _puerto_destino; }
+void Incidencia::setIpOrigenValue(unsigned int _ip_origen_value) {
+  ip_origen_value = _ip_origen_value;
+}
+void Incidencia::setIpDestino(std::string _ip_destino) {
+  ip_destino = _ip_destino;
+}
+void Incidencia::setPuertoOrigen(std::string _puerto_origen) {
+  puerto_origen = _puerto_origen;
+}
+void Incidencia::setPuertoDestino(std::string _puerto_destino) {
+  puerto_destino = _puerto_destino;
+}
 void Incidencia::setMes(std::string _mes) { mes = _mes; }
 void Incidencia::setPeso(int _peso) { peso = _peso; }
-void Incidencia::setNumVecinos(int _num_vecinos) {  num_vecinos = _num_vecinos; }
+void Incidencia::setNumVecinos(int _num_vecinos) { num_vecinos = _num_vecinos; }
 
-//getters
-unsigned int Incidencia::getIpOrigenValue(){ return ip_origen_value; }
-std::string Incidencia::getIpOrigen(){ return ip_origen; }
-std::string Incidencia::getIpDestino(){ return ip_destino; }
-std::string Incidencia::getPuertoOrigen(){return puerto_origen; }
-std::string Incidencia::getPuertoDestino() {return puerto_destino; }
-std::string Incidencia::getPesoInicial(){ return peso_inicial; }
-int Incidencia::getNumVecinos(){ return num_vecinos; }
-int Incidencia::getPeso(){ return peso; }
-
+// getters
+unsigned int Incidencia::getIpOrigenValue() { return ip_origen_value; }
+std::string Incidencia::getIpOrigen() { return ip_origen; }
+std::string Incidencia::getIpDestino() { return ip_destino; }
+std::string Incidencia::getPuertoOrigen() { return puerto_origen; }
+std::string Incidencia::getPuertoDestino() { return puerto_destino; }
+std::string Incidencia::getPesoInicial() { return peso_inicial; }
+int Incidencia::getNumVecinos() { return num_vecinos; }
+int Incidencia::getPeso() { return peso; }
+int Incidencia::getEntries() { return entries; }
 
 // Setter con calculo de valor total de Ip
-void Incidencia::setIpValue(std::string _ip_value, int n) { 
-  
+void Incidencia::setIpValue(std::string _ip_value, int n) {
+
   std::string octeto;
 
   std::stringstream octetos(_ip_value);
   int cont = 3;
   unsigned int totalValue = 0;
 
-  for(int i=0; i <4; i++) {
+  for (int i = 0; i < 4; i++) {
     // Separar octetos de direccion ip por delimitador "."
     getline(octetos, octeto, '.');
-    
-    // Convertir a int 
-    int num = stoi(octeto);
 
+    // Convertir a int
+    int num = stoi(octeto);
 
     // Elevar valor del octeto a potencia correspondiente
     num *= pow(256, cont);
@@ -82,25 +89,24 @@ void Incidencia::setIpValue(std::string _ip_value, int n) {
     cont--;
   }
 
-  if(n == 0){
+  if (n == 0) {
     ///////
     this->setIpOrigenValue(totalValue);
     ip_origen = _ip_value;
-    //ip_origen_value = totalValue;
-  }
-  else{
+    // ip_origen_value = totalValue;
+  } else {
     ip_destino_value = totalValue;
     ip_destino = _ip_value;
   }
-    
 }
 
 // Separa  ip-puerto y setea peso en int
-void Incidencia::cambiarFormato(std::string ip_puerto_origen, std::string ip_puerto_destino, std::string pesostr){
+void Incidencia::cambiarFormato(std::string ip_puerto_origen,
+                                std::string ip_puerto_destino,
+                                std::string pesostr) {
 
+  std::string ip_og, puerto_og, ip_dst, puerto_dst;
 
-  std::string ip_og, puerto_og, ip_dst,  puerto_dst;
-  
   // Separando puerto de ip
   std::stringstream ssip_puerto_og(ip_puerto_origen);
   std::stringstream ssip_puerto_dst(ip_puerto_destino);
@@ -109,8 +115,8 @@ void Incidencia::cambiarFormato(std::string ip_puerto_origen, std::string ip_pue
   getline(ssip_puerto_og, puerto_og, ':');
   getline(ssip_puerto_dst, ip_dst, ':');
   getline(ssip_puerto_dst, puerto_dst, ':');
-  
-  //Setear puerto e ip
+
+  // Setear puerto e ip
   this->setIpOrigen(ip_og);
   this->setPuertoOrigen(puerto_og);
   this->setIpDestino(ip_dst);
@@ -122,10 +128,6 @@ void Incidencia::cambiarFormato(std::string ip_puerto_origen, std::string ip_pue
 
   this->setPeso(stoi(pesostr));
 }
-
-
-
-
 
 // Comparacion de Registro por direccion ip
 bool Incidencia::operator==(const Incidencia &other) {
